@@ -7,7 +7,7 @@ A Quarto extension for interactive quizzes using [quizdown-js](https://github.co
 ## Install
 
 ```bash
-quarto add ilyamusabirov/quarto-quizdown-mds-ext
+quarto add UBC-MDS/quarto-quizdown-mds-ext
 ```
 
 ## Usage
