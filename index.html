@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quizdown for Quarto — MDS Extension – quizdown for Quarto (MDS)</title>
+<title>quizdown for Quarto, MDS fork – quizdown for Quarto (MDS fork)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">quizdown for Quarto (MDS)</span>
+    <span class="navbar-title">quizdown for Quarto (MDS fork)</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">quizdown for Quarto — MDS Extension</h1>
+<h1 class="title">quizdown for Quarto, MDS fork</h1>
 </div>
 
 
@@ -199,55 +199,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ---
 shuffle_answers: true
 ---
-
-# What is the output of this Python code?
-
-~~~python
-x = [2, 3, 4]
-x[2] = 9
-print(x[2])
-~~~
-
-&gt; Python lists are **zero-indexed** and **mutable** — `x[2]` is the third element.
-
-1. [x] 9
-    &gt; Correct — `x[2] = 9` overwrites the third element before `print` runs.
-1. [ ] 4
-    &gt; That was the original value at index 2 before the assignment.
-1. [ ] 2
-    &gt; 2 is the value at index 0.
-1. [ ] 3
-    &gt; 3 is the value at index 1.
-
-## Which of the following are supervised learning tasks?
-
-Select **all** that apply.
-
-&gt; In **supervised learning** the model learns from labeled examples — training data where the correct output (target) is already known.
-
-- [x] Predicting house prices from features like size and location
-    &gt; ✓ Supervised — the training data includes known sale prices (continuous target).
-- [ ] Grouping customers by purchasing behaviour with no labels
-    &gt; ✗ This is **clustering** — an unsupervised method with no target variable.
-- [x] Classifying email as spam or not spam
-    &gt; ✓ Supervised — human-labelled examples (spam / not spam) train the model.
-- [x] Forecasting tomorrow's temperature from historical weather data
-    &gt; ✓ Supervised — past temperature measurements are the labels.
-- [ ] Discovering latent topics in a corpus of documents
-    &gt; ✗ Topic modelling (e.g. LDA) is unsupervised — no labels provided.
-
-## Put the supervised ML workflow steps in order!
-
-&gt; A typical supervised ML project follows this sequence — getting the order wrong is a common source of data leakage and overfitting bugs.
-
-1. Define the problem and success metric
-2. Collect and clean data
-3. Exploratory data analysis
-4. Feature engineering
-5. Split into train / validation / test sets
-6. Train and tune a model
-7. Evaluate on the held-out test set
-8. Deploy and monitor
 
 ## Match each Python data structure to its key property!
 
@@ -284,6 +235,55 @@ The chips **Regression** and **Classification** are reusable — drag or click e
     &gt; A binary categorical outcome.
 - :: Clustering
     &gt; Clustering is **unsupervised** — no target label is predicted.
+
+## Put the supervised ML workflow steps in order!
+
+&gt; A typical supervised ML project follows this sequence — getting the order wrong is a common source of data leakage and overfitting bugs.
+
+1. Define the problem and success metric
+2. Collect and clean data
+3. Exploratory data analysis
+4. Feature engineering
+5. Split into train / validation / test sets
+6. Train and tune a model
+7. Evaluate on the held-out test set
+8. Deploy and monitor
+
+# What is the output of this Python code?
+
+~~~python
+x = [2, 3, 4]
+x[2] = 9
+print(x[2])
+~~~
+
+&gt; Python lists are **zero-indexed** and **mutable** — `x[2]` is the third element.
+
+1. [x] 9
+    &gt; Correct — `x[2] = 9` overwrites the third element before `print` runs.
+1. [ ] 4
+    &gt; That was the original value at index 2 before the assignment.
+1. [ ] 2
+    &gt; 2 is the value at index 0.
+1. [ ] 3
+    &gt; 3 is the value at index 1.
+
+## Which of the following are supervised learning tasks?
+
+Select **all** that apply.
+
+&gt; In **supervised learning** the model learns from labeled examples — training data where the correct output (target) is already known.
+
+- [x] Predicting house prices from features like size and location
+    &gt; ✓ Supervised — the training data includes known sale prices (continuous target).
+- [ ] Grouping customers by purchasing behaviour with no labels
+    &gt; ✗ This is **clustering** — an unsupervised method with no target variable.
+- [x] Classifying email as spam or not spam
+    &gt; ✓ Supervised — human-labelled examples (spam / not spam) train the model.
+- [x] Forecasting tomorrow's temperature from historical weather data
+    &gt; ✓ Supervised — past temperature measurements are the labels.
+- [ ] Discovering latent topics in a corpus of documents
+    &gt; ✗ Topic modelling (e.g. LDA) is unsupervised — no labels provided.
 </div>
 <hr>
 </section>
