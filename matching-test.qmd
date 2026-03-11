@@ -1,0 +1,51 @@
+---
+title: "Matching — backward-compat & multi-match test"
+filters:
+  - quizdown
+---
+
+This page tests both **traditional 1-to-1 matching** and the new **multi-match (classification) mode** in the same quiz, plus print review for both.
+
+Press **Cmd/Ctrl+P** after answering to see the print review.
+
+```quizdown
+---
+shuffle_answers: true
+---
+
+## Q1 (Traditional): Match each animal to its sound
+
+Each right chip maps to exactly one left prompt, plus two distractors.
+
+- Dog :: Woof
+    > Dogs bark to communicate.
+- Cat :: Meow
+    > Adult cats meow mainly to communicate with humans.
+- Cow :: Moo
+    > Cows produce low-frequency moo calls.
+- :: Neigh
+    > Horses neigh — not used here.
+- :: Ribbit
+    > Frogs ribbit — not used here.
+
+> Classic 1-to-1 matching with distractors.
+
+## Q2 (Multi-match): Classify each ML task as Regression or Classification
+
+Two reusable chips (Regression, Classification) plus one distractor (Clustering).
+
+- Predict house price :: Regression
+    > The target (price) is a continuous number.
+- Detect spam email :: Classification
+    > The target is a category: spam or not spam.
+- Forecast stock return :: Regression
+    > Returns are continuous values, not categories.
+- Identify handwritten digit :: Classification
+    > Digits 0–9 are discrete categories.
+- Estimate delivery time :: Regression
+    > Delivery time is a continuous quantity.
+- :: Clustering
+    > Clustering is unsupervised learning — there is no target label to predict.
+
+> Regression → continuous target. Classification → categorical target.
+```
