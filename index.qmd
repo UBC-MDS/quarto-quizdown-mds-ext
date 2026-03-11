@@ -105,11 +105,30 @@ Select **all** that apply.
 
 ---
 
-## Matching and classification questions
+## Question examples
 
-### 1-to-1 matching
+### Matching and classification questions
+
+#### 1-to-1 matching
 
 Each right-side chip belongs to exactly one left prompt. Chips are consumed from the pool when placed. Distractors (`:: Value`) are chips that don't match any prompt.
+
+::: {.callout-note collapse="true" title="Syntax"}
+````markdown
+```quizdown
+## Match X to Y!
+
+- Left prompt :: Right chip
+    > Per-pair feedback shown after evaluation.
+- Another prompt :: Another chip
+    > Feedback for this pair.
+- :: Distractor chip
+    > Shown when this distractor is placed in a slot.
+
+> Overall hint shown when student clicks 💡.
+```
+````
+:::
 
 ```quizdown
 ---
@@ -130,9 +149,24 @@ shuffle_answers: true
 > Think about **where the data lives**, **how large it is**, and **what the runtime supports**.
 ```
 
-### Multi-match / classification
+#### Multi-match / classification
 
 When the **same right-side label appears more than once**, it becomes a **reusable chip** that stays in the pool after being placed — perfect for classify-into-bins tasks.
+
+::: {.callout-note collapse="true" title="Syntax"}
+````markdown
+```quizdown
+## Classify each item!
+
+- Item A :: Category 1
+- Item B :: Category 2
+- Item C :: Category 1
+- :: Distractor
+
+> Hint: repeated right-side values become reusable chips.
+```
+````
+:::
 
 ```quizdown
 ---
@@ -159,11 +193,28 @@ shuffle_answers: true
 
 ---
 
-## Multiple choice and single choice
+### Multiple choice and single choice
 
-### Single choice
+#### Single choice
 
 Exactly one correct answer. Use a **numbered list** (`1.`) with `[x]` on the correct option.
+
+::: {.callout-note collapse="true" title="Syntax"}
+````markdown
+```quizdown
+# Question heading
+
+> Optional hint shown when student clicks 💡.
+
+1. [x] Correct answer
+    > Feedback shown after evaluation.
+1. [ ] Wrong answer
+    > Explain why this is wrong.
+1. [ ] Another wrong answer
+    > Explain why this is wrong.
+```
+````
+:::
 
 ```quizdown
 ---
@@ -184,9 +235,26 @@ shuffle_answers: true
     > Scaling up is a patch — the right fix is to never load the full file.
 ```
 
-### Multiple choice
+#### Multiple choice
 
 One or more correct answers. Use an **unordered list** (`-`) with `[x]` on all correct options.
+
+::: {.callout-note collapse="true" title="Syntax"}
+````markdown
+```quizdown
+## Question heading
+
+> Optional hint.
+
+- [x] Correct option
+    > Feedback.
+- [x] Also correct
+    > Feedback.
+- [ ] Wrong option
+    > Feedback.
+```
+````
+:::
 
 ```quizdown
 ---
@@ -211,9 +279,24 @@ shuffle_answers: true
 
 ---
 
-## Sequence
+### Sequence
 
 Students drag items into the correct order. Use a **numbered list without checkboxes**.
+
+::: {.callout-note collapse="true" title="Syntax"}
+````markdown
+```quizdown
+## Put these steps in order!
+
+> Optional hint.
+
+1. First step
+2. Second step
+3. Third step
+4. Fourth step
+```
+````
+:::
 
 ```quizdown
 ---
