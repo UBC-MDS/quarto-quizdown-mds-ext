@@ -5,138 +5,64 @@ filters:
 ---
 
 Interactive quizzes for Quarto documents, powered by [quizdown-js](https://github.com/bonartm/quizdown-js).
-Fork of [parmsam/quarto-quizdown](https://github.com/parmsam/quarto-quizdown), extended with new question types and a print review mode.
+MDS fork of [parmsam/quarto-quizdown](https://github.com/parmsam/quarto-quizdown), extended with new question types and a print review mode.
 
-## Install
+**Install:**
 
 ```bash
 quarto add UBC-MDS/quarto-quizdown-mds-ext
 ```
 
-Then add the filter to your document front matter:
-
-```yaml
----
-filters:
-  - quizdown
----
-```
-
-Update an existing installation:
-
-```bash
-quarto update extension UBC-MDS/quarto-quizdown-mds-ext
-```
-
 ---
 
-## Question types
+## Try it — full quiz
 
-All questions live inside a ` ```quizdown ` fenced code block. A single block can contain multiple questions — students navigate with the arrow buttons and submit all at once.
-
-### Single choice
-
-Use a **numbered list** where exactly one item is marked `[x]`. Optionally add a `> blockquote` under any answer as per-option feedback.
-
-::: {.callout-note collapse="true" title="Show syntax"}
-````markdown
-```quizdown
-# What is 2 + 2?
-
-1. [ ] 3
-1. [x] 4
-    > Correct — basic arithmetic!
-1. [ ] 5
-```
-````
-:::
-
-```quizdown
----
-shuffle_answers: false
----
-
-# What is the output of `len([1, 2, 3])`?
-
-> `len()` returns the number of items in a list.
-
-1. [ ] 1
-1. [ ] 2
-1. [x] 3
-    > Correct — the list has 3 elements.
-1. [ ] 4
-```
-
----
-
-### Multiple choice
-
-Use an **unordered list** (with `-`) where one or more items are marked `[x]`.
-
-::: {.callout-note collapse="true" title="Show syntax"}
-````markdown
-```quizdown
-## Which are Python mutable types?
-
-- [x] list
-    > Lists can be modified after creation.
-- [ ] tuple
-    > Tuples are immutable.
-- [x] dict
-    > Dictionaries are mutable.
-- [ ] str
-    > Strings are immutable in Python.
-```
-````
-:::
-
-```quizdown
----
-shuffle_answers: false
----
-
-## Which of the following are Python mutable types?
-
-> A mutable object can be changed after it is created.
-
-- [x] list
-    > Lists can be modified after creation.
-- [ ] tuple
-    > Tuples are immutable — you cannot change their contents.
-- [x] dict
-    > Dictionaries are mutable — keys and values can be added or changed.
-- [ ] str
-    > Strings are immutable in Python.
-- [x] set
-    > Sets are mutable — you can add and remove elements.
-```
-
----
-
-### Sequence
-
-Use a **numbered list without checkboxes**. Students drag items into order.
-
-::: {.callout-note collapse="true" title="Show syntax"}
-````markdown
-```quizdown
-## Put the steps in order!
-
-1. Step one
-2. Step two
-3. Step three
-```
-````
-:::
+All five question types in one quiz. Answer everything, hit ✓✓ to evaluate, then **`Cmd/Ctrl+P`** to see the print review sheet.
 
 ```quizdown
 ---
 shuffle_answers: true
 ---
 
+# What is the output of this Python code?
+
+~~~python
+x = [2, 3, 4]
+x[2] = 9
+print(x[2])
+~~~
+
+> Python lists are **zero-indexed** and **mutable** — `x[2]` is the third element.
+
+1. [x] 9
+    > Correct — `x[2] = 9` overwrites the third element before `print` runs.
+1. [ ] 4
+    > That was the original value at index 2 before the assignment.
+1. [ ] 2
+    > 2 is the value at index 0.
+1. [ ] 3
+    > 3 is the value at index 1.
+
+## Which of the following are supervised learning tasks?
+
+Select **all** that apply.
+
+> In **supervised learning** the model learns from labeled examples — training data where the correct output (target) is already known.
+
+- [x] Predicting house prices from features like size and location
+    > ✓ Supervised — the training data includes known sale prices (continuous target).
+- [ ] Grouping customers by purchasing behaviour with no labels
+    > ✗ This is **clustering** — an unsupervised method with no target variable.
+- [x] Classifying email as spam or not spam
+    > ✓ Supervised — human-labelled examples (spam / not spam) train the model.
+- [x] Forecasting tomorrow's temperature from historical weather data
+    > ✓ Supervised — past temperature measurements are the labels.
+- [ ] Discovering latent topics in a corpus of documents
+    > ✗ Topic modelling (e.g. LDA) is unsupervised — no labels provided.
+
 ## Put the supervised ML workflow steps in order!
 
-> A typical supervised ML project follows this sequence from problem definition to deployment.
+> A typical supervised ML project follows this sequence — getting the order wrong is a common source of data leakage and overfitting bugs.
 
 1. Define the problem and success metric
 2. Collect and clean data
@@ -144,32 +70,53 @@ shuffle_answers: true
 4. Feature engineering
 5. Split into train / validation / test sets
 6. Train and tune a model
-7. Evaluate on the test set
+7. Evaluate on the held-out test set
 8. Deploy and monitor
+
+## Match each Python data structure to its key property!
+
+- list :: Ordered, mutable sequence
+    > Lists maintain insertion order and can be modified after creation — the most general-purpose container.
+- tuple :: Ordered, immutable sequence
+    > Tuples are like lists but frozen — useful for dictionary keys and function return values.
+- dict :: Key-value store with unique keys
+    > Dictionaries map unique keys to values; insertion order is preserved in Python 3.7+.
+- set :: Unordered collection of unique values
+    > Sets deduplicate automatically — ideal for membership tests and set operations.
+- :: Linked list
+    > Python has no built-in linked list, though `collections.deque` provides O(1) head/tail operations.
+
+> Think about **mutability** and **ordering** — those two properties distinguish all four types.
+
+## Classify each ML task as Regression or Classification!
+
+The chips **Regression** and **Classification** are reusable — drag or click each to as many rows as needed.
+
+> **Regression** predicts a *continuous* value (a number on a scale). **Classification** predicts a *category* (one of a finite set of classes).
+
+- Predict house price :: Regression
+    > The output is a dollar amount — a continuous value.
+- Detect spam email :: Classification
+    > The output is spam / not spam — a binary category.
+- Forecast next month's sales revenue :: Regression
+    > Revenue is continuous — even though it's rounded to cents.
+- Identify the digit in a handwritten image :: Classification
+    > The output is one of 10 discrete classes (0–9).
+- Estimate a patient's remaining hospital stay in days :: Regression
+    > Days is a continuous (or at least ordinal) quantity.
+- Diagnose whether a tumour is malignant or benign :: Classification
+    > A binary categorical outcome.
+- :: Clustering
+    > Clustering is **unsupervised** — no target label is predicted.
 ```
 
 ---
 
-### Matching (1-to-1)
+## Matching and classification questions
 
-Use an **unordered list** with `Left :: Right` pairs. Each right chip belongs to exactly one left prompt.
-Add a distractor with `:: Value` (no left side). Per-pair feedback uses an indented `>` blockquote.
+### 1-to-1 matching
 
-::: {.callout-note collapse="true" title="Show syntax"}
-````markdown
-```quizdown
-## Match each term to its definition!
-
-- Term A :: Definition A
-    > Feedback for this pair.
-- Term B :: Definition B
-- :: Red herring
-    > Feedback shown when this distractor is placed.
-
-> Overall question hint.
-```
-````
-:::
+Each right-side chip belongs to exactly one left prompt. Chips are consumed from the pool when placed. Distractors (`:: Value`) are chips that don't match any prompt.
 
 ```quizdown
 ---
@@ -179,41 +126,22 @@ shuffle_answers: true
 ## Match each Python data structure to its key property!
 
 - list :: Ordered, mutable sequence
-    > Lists maintain insertion order and can be changed after creation.
+    > Lists maintain insertion order and can be modified in place.
 - tuple :: Ordered, immutable sequence
-    > Tuples are like lists but cannot be modified once created.
+    > Like a list but frozen — safe to use as a dictionary key.
 - dict :: Key-value store with unique keys
-    > Dictionaries map unique keys to values; order is preserved in Python 3.7+.
+    > Maps unique keys to values; O(1) average lookup.
 - set :: Unordered collection of unique values
-    > Sets automatically deduplicate — great for membership tests.
+    > Deduplicates automatically; O(1) membership test.
 - :: Linked list
-    > Python has no built-in linked list (though `collections.deque` is close).
+    > Python has no built-in linked list.
 
 > Think about mutability and ordering.
 ```
 
----
+### Multi-match / classification
 
-### Matching (multi-match / classification) *(MDS addition)*
-
-When the **same right-side label appears for multiple left items**, it automatically becomes a **reusable chip** that stays in the pool after being placed — perfect for classify-into-bins tasks.
-
-::: {.callout-note collapse="true" title="Show syntax"}
-````markdown
-```quizdown
-## Classify each task!
-
-- Task A :: Category 1
-    > Feedback for Task A.
-- Task B :: Category 2
-    > Feedback for Task B.
-- Task C :: Category 1
-    > Feedback for Task C — same chip as Task A.
-- :: Red herring
-    > This option is never correct.
-```
-````
-:::
+When the **same right-side label appears more than once**, it becomes a **reusable chip** that stays in the pool after being placed — perfect for classify-into-bins tasks.
 
 ```quizdown
 ---
@@ -222,103 +150,7 @@ shuffle_answers: true
 
 ## Classify each ML task as Regression or Classification!
 
-> Regression predicts a **continuous** value; Classification predicts a **category**.
-
-- Predict house price :: Regression
-    > The target (price) is a continuous number.
-- Detect spam email :: Classification
-    > The output is a category: spam or not spam.
-- Forecast stock return :: Regression
-    > Returns are continuous values, not categories.
-- Identify handwritten digit :: Classification
-    > Digits 0–9 are discrete categories.
-- Estimate delivery time :: Regression
-    > Delivery time is a continuous quantity.
-- Diagnose disease from image :: Classification
-    > Disease/no-disease is a categorical outcome.
-- :: Clustering
-    > Clustering is unsupervised — there is no target label to predict.
-```
-
----
-
-## Combined quiz — all types together
-
-A single quiz block with all five question types, showing how they work end-to-end including the **print review** (try `Cmd/Ctrl+P` after evaluating).
-
-::: {.callout-tip}
-**Print review:** after answering all questions and pressing ✓✓ (evaluate), press `Cmd/Ctrl+P`. The print dialog will show a static review sheet with your selections, correct answers, and feedback for every question.
-:::
-
-```quizdown
----
-shuffle_answers: true
----
-
-# Single choice: Python indexing
-
-What is the value of `x[2]` after this code?
-
-~~~python
-x = [2, 3, 4]
-x[2] = 9
-print(x[2])
-~~~
-
-1. [x] 9
-    > Correct — `x[2] = 9` overwrites index 2.
-1. [ ] 4
-    > That was the original value before the assignment.
-1. [ ] 2
-1. [ ] 3
-
-## Multiple choice: supervised learning tasks
-
-Select **all** that apply.
-
-> Supervised learning requires labeled training data.
-
-- [x] Predicting house prices
-    > Yes — continuous labeled target.
-- [ ] Clustering customers
-    > No — clustering is unsupervised.
-- [x] Classifying email as spam
-    > Yes — categorical labeled target.
-- [x] Forecasting temperature
-    > Yes — continuous labeled target.
-- [ ] Finding hidden topics in documents
-    > No — topic modelling is unsupervised.
-
-## Sequence: ML workflow
-
-> A typical supervised ML project follows this sequence.
-
-1. Define the problem and success metric
-2. Collect and clean data
-3. Exploratory data analysis
-4. Feature engineering
-5. Train and tune a model
-6. Evaluate on the test set
-7. Deploy and monitor
-
-## Matching (1-to-1): animals and sounds
-
-- Dog :: Woof
-    > Dogs bark to communicate.
-- Cat :: Meow
-    > Adult cats mostly meow to communicate with humans.
-- Cow :: Moo
-    > Cows vocalize with low-frequency moo calls.
-- :: Neigh
-    > Horses neigh — a distractor here.
-- :: Ribbit
-    > Frogs ribbit — a distractor here.
-
-> Think about farm and household animals.
-
-## Matching (multi-match): classify ML tasks
-
-Chips **Regression** and **Classification** are reusable.
+> Regression → continuous target. Classification → categorical target.
 
 - Predict house price :: Regression
     > The target (price) is a continuous number.
@@ -331,9 +163,224 @@ Chips **Regression** and **Classification** are reusable.
 - Estimate delivery time :: Regression
     > Delivery time is a continuous quantity.
 - :: Clustering
-    > Clustering is unsupervised — no target label.
+    > Clustering is unsupervised — there is no target label to predict.
+```
 
-> Regression → continuous. Classification → categorical.
+---
+
+## Multiple choice and single choice
+
+### Single choice
+
+Exactly one correct answer. Use a **numbered list** (`1.`) with `[x]` on the correct option.
+
+```quizdown
+---
+shuffle_answers: true
+---
+
+# What does `df.shape` return in pandas?
+
+> `shape` is an attribute, not a method — no parentheses needed.
+
+1. [x] A tuple `(rows, columns)`
+    > Correct — e.g. `(150, 5)` for a DataFrame with 150 rows and 5 columns.
+1. [ ] The number of rows only
+    > `len(df)` gives the number of rows.
+1. [ ] A list of column names
+    > `df.columns` gives column names.
+1. [ ] The total number of cells
+    > `df.size` gives rows × columns.
+```
+
+### Multiple choice
+
+One or more correct answers. Use an **unordered list** (`-`) with `[x]` on all correct options.
+
+```quizdown
+---
+shuffle_answers: true
+---
+
+## Which of the following are Python mutable types?
+
+> A **mutable** object can be changed after it is created. An **immutable** object cannot.
+
+- [x] list
+    > ✓ Lists can be modified — you can append, remove, and reassign elements.
+- [ ] tuple
+    > ✗ Tuples are immutable — their contents cannot be changed after creation.
+- [x] dict
+    > ✓ Dictionaries are mutable — keys and values can be added, changed, or removed.
+- [ ] str
+    > ✗ Strings are immutable in Python — operations like `.upper()` return a new string.
+- [x] set
+    > ✓ Sets are mutable — you can add and discard elements.
+- [ ] frozenset
+    > ✗ `frozenset` is the immutable counterpart of `set`.
+```
+
+---
+
+## Sequence
+
+Students drag items into the correct order. Use a **numbered list without checkboxes**.
+
+```quizdown
+---
+shuffle_answers: true
+---
+
+## Put the Git workflow steps in order!
+
+> This is the standard cycle for contributing a change to a shared repository.
+
+1. Create a feature branch from `main`
+2. Make and stage your changes (`git add`)
+3. Commit with a descriptive message (`git commit`)
+4. Push the branch to the remote (`git push`)
+5. Open a pull request
+6. Address review feedback
+7. Merge into `main`
+8. Delete the feature branch
+```
+
+---
+
+## Print review mode
+
+After a student answers all questions and clicks **✓✓ evaluate**, pressing **`Cmd/Ctrl+P`** replaces the interactive quiz with a static review sheet showing:
+
+- Every question with its **student-selected answers**
+- The **correct answer(s)** highlighted
+- **Per-option / per-pair feedback** written into the question
+- **Pass / needs review** status per question
+
+No navigation needed — all questions appear at once. This makes printed quizzes useful as study notes.
+
+::: {.callout-tip}
+**Try it:** go back to the [full quiz](#try-it-full-quiz) at the top, answer all five questions, click ✓✓, then press `Cmd/Ctrl+P`. The print dialog will show the full review sheet.
+:::
+
+---
+
+## Embedding quizzes in your pages
+
+### Basic usage
+
+Add the filter to your document front matter, then write a quiz inside a ` ```quizdown ` code block:
+
+````markdown
+---
+filters:
+  - quizdown
+---
+
+```quizdown
+---
+shuffle_answers: true
+primary_color: "#4b75a8"
+---
+
+## Question heading
+
+Answer options here.
+```
+````
+
+### Quiz inside a "Check your understanding" callout
+
+You can embed a quiz directly inside a Quarto callout — students expand it when they're ready:
+
+````markdown
+::: {.callout-note collapse="true" title="✏️ Check your understanding"}
+
+```quizdown
+## Which of these is a supervised learning task?
+
+1. [ ] Clustering customers by behaviour
+1. [x] Predicting whether a loan will default
+    > Correct — the model is trained on historical loan outcomes (labels).
+1. [ ] Dimensionality reduction with PCA
+```
+
+:::
+````
+
+**Live example:**
+
+::: {.callout-note collapse="true" title="✏️ Check your understanding"}
+
+```quizdown
+---
+shuffle_answers: true
+---
+
+## Which of these is a supervised learning task?
+
+> Supervised learning requires labelled training data — examples where the correct output is already known.
+
+1. [ ] Clustering customers by purchase behaviour
+    > No — clustering is unsupervised. There is no target label.
+1. [x] Predicting whether a loan will default
+    > Yes — the model is trained on historical loan outcomes (default / no default) as labels.
+1. [ ] Reducing 100 features to 2 dimensions with PCA
+    > No — PCA is unsupervised dimensionality reduction.
+1. [ ] Grouping news articles by topic with LDA
+    > No — LDA topic modelling is unsupervised.
+```
+
+:::
+
+### Quiz configuration options
+
+Pass YAML front matter inside the quiz block to configure it:
+
+```yaml
+---
+primary_color: "#4b75a8"   # accent colour (hex or CSS name)
+secondary_color: lightgray  # chip / background colour
+text_color: black
+shuffle_questions: false    # randomise question order
+shuffle_answers: true       # randomise answer/chip order
+---
+```
+
+---
+
+## How it works — the syntax
+
+A single ` ```quizdown ` block can hold multiple questions. Question type is inferred from the list syntax.
+
+| Question type | List syntax | Correct marker |
+|---|---|---|
+| Single choice | Ordered list `1.` | `[x]` on one item |
+| Multiple choice | Unordered list `-` | `[x]` on one or more items |
+| Sequence | Ordered list `1.` | No `[x]` — order is the answer |
+| Matching / classification | Unordered list `-` | `Left :: Right` pairs |
+
+### Feedback and hints
+
+```markdown
+## Question heading
+
+Optional overall hint as a blockquote.
+
+> Hint text shown when student clicks the lightbulb 💡.
+
+- [x] Correct option
+    > Per-option feedback — shown after evaluation.
+- [ ] Wrong option
+    > Explain why this is wrong.
+```
+
+For matching questions:
+
+```markdown
+- Left prompt :: Right chip
+    > Per-pair feedback shown after evaluation.
+- :: Distractor chip
+    > Shown when this distractor is placed in a slot.
 ```
 
 ---
@@ -342,3 +389,4 @@ Chips **Regression** and **Classification** are reusable.
 
 - Original Quarto extension: [parmsam/quarto-quizdown](https://github.com/parmsam/quarto-quizdown) (MIT, Sam Parmar 2025)
 - quizdown-js library: [bonartm/quizdown-js](https://github.com/bonartm/quizdown-js) (MIT, Malte Bonart 2020–21)
+
