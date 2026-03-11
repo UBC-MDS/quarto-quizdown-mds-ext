@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: "quizdown for Quarto (MDS)"
+  title: "quizdown for Quarto (MDS fork)"
   site-url: "https://ubc-mds.github.io/quarto-quizdown-mds-ext"
   description: "Interactive quizzes for Quarto — matching, classification, and more"
   navbar:
