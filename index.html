@@ -200,20 +200,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 shuffle_answers: true
 ---
 
-## Match each Python data structure to its key property!
+## Match each data loading approach to its best use case!
 
-- list :: Ordered, mutable sequence
-    &gt; Lists maintain insertion order and can be modified after creation — the most general-purpose container.
-- tuple :: Ordered, immutable sequence
-    &gt; Tuples are like lists but frozen — useful for dictionary keys and function return values.
-- dict :: Key-value store with unique keys
-    &gt; Dictionaries map unique keys to values; insertion order is preserved in Python 3.7+.
-- set :: Unordered collection of unique values
-    &gt; Sets deduplicate automatically — ideal for membership tests and set operations.
-- :: Linked list
-    &gt; Python has no built-in linked list, though `collections.deque` provides O(1) head/tail operations.
+- `pd.read_parquet()` at startup :: Small dataset that fits comfortably in memory
+    &gt; Fast and simple — load once at startup, reuse throughout the session.
+- `ibis` + DuckDB lazy query :: Large file — push filters before loading
+    &gt; Only the query result enters memory; the full file never loads. Ideal for multi-GB Parquet.
+- In-memory pre-sampled data :: Shinylive / WASM deployment
+    &gt; DuckDB file access silently fails in WASM — embed a small pre-sampled dataset instead.
+- `@reactive.calc` with eager load :: Slow computation shared by multiple outputs
+    &gt; Load eagerly, then cache the filtered result so downstream outputs don't re-run the query.
+- :: Streaming from a REST API
+    &gt; REST streaming is a separate pattern — none of the above tools are designed for it.
 
-&gt; Think about **mutability** and **ordering** — those two properties distinguish all four types.
+&gt; Think about **where the data lives**, **how large it is**, and **what the runtime environment supports**.
 
 ## Classify each ML task as Regression or Classification!
 
@@ -236,54 +236,47 @@ The chips **Regression** and **Classification** are reusable — drag or click e
 - :: Clustering
     &gt; Clustering is **unsupervised** — no target label is predicted.
 
-## Put the supervised ML workflow steps in order!
+## Put the EDA steps in order!
 
-&gt; A typical supervised ML project follows this sequence — getting the order wrong is a common source of data leakage and overfitting bugs.
+&gt; Exploratory Data Analysis follows a natural progression from raw inspection to insight — skipping early steps often leads to missed data quality issues.
 
-1. Define the problem and success metric
-2. Collect and clean data
-3. Exploratory data analysis
-4. Feature engineering
-5. Split into train / validation / test sets
-6. Train and tune a model
-7. Evaluate on the held-out test set
-8. Deploy and monitor
+1. Load and inspect the raw data (`df.head()`, `.info()`, `.dtypes`)
+2. Check for missing values and duplicates
+3. Compute summary statistics (`df.describe()`)
+4. Visualize distributions of individual variables
+5. Explore relationships between variables (correlations, scatter plots)
+6. Identify and investigate outliers
+7. Document findings and decide on data cleaning steps
 
-# What is the output of this Python code?
+# A Shiny app loads a 2 GB Parquet file at startup. It crashes on Posit Connect due to memory limits. What is the right fix?
 
-~~~python
-x = [2, 3, 4]
-x[2] = 9
-print(x[2])
-~~~
+&gt; Think about *when* data actually enters memory, not just *where* the load call is placed.
 
-&gt; Python lists are **zero-indexed** and **mutable** — `x[2]` is the third element.
+1. [x] Switch to `ibis` + DuckDB lazy loading — load only the query result
+    &gt; Correct — with `ibis`, `.execute()` runs a SQL query and loads only the filtered rows. The full 2 GB file never enters RAM.
+1. [ ] Move the `pd.read_parquet()` call inside a `@reactive.calc`
+    &gt; This defers the load to first use, but the full file still enters memory — the crash will still happen.
+1. [ ] Convert the Parquet file to CSV, which uses less memory
+    &gt; CSV is actually *larger* than Parquet on disk, and loading it still reads the full file into memory.
+1. [ ] Increase the worker memory limit on Posit Connect
+    &gt; Scaling up is a temporary patch — the correct fix is to never load the full file in the first place.
 
-1. [x] 9
-    &gt; Correct — `x[2] = 9` overwrites the third element before `print` runs.
-1. [ ] 4
-    &gt; That was the original value at index 2 before the assignment.
-1. [ ] 2
-    &gt; 2 is the value at index 0.
-1. [ ] 3
-    &gt; 3 is the value at index 1.
-
-## Which of the following are supervised learning tasks?
+## Which of the following are valid reasons to choose Parquet over CSV for storing tabular data?
 
 Select **all** that apply.
 
-&gt; In **supervised learning** the model learns from labeled examples — training data where the correct output (target) is already known.
+&gt; Parquet is a binary columnar format; CSV is plain text row-by-row. Both store tabular data, but they make very different trade-offs.
 
-- [x] Predicting house prices from features like size and location
-    &gt; ✓ Supervised — the training data includes known sale prices (continuous target).
-- [ ] Grouping customers by purchasing behaviour with no labels
-    &gt; ✗ This is **clustering** — an unsupervised method with no target variable.
-- [x] Classifying email as spam or not spam
-    &gt; ✓ Supervised — human-labelled examples (spam / not spam) train the model.
-- [x] Forecasting tomorrow's temperature from historical weather data
-    &gt; ✓ Supervised — past temperature measurements are the labels.
-- [ ] Discovering latent topics in a corpus of documents
-    &gt; ✗ Topic modelling (e.g. LDA) is unsupervised — no labels provided.
+- [x] Column-oriented storage enables faster column scans
+    &gt; ✓ Parquet reads only the columns requested — CSV must scan every row to extract a single column.
+- [x] Data types are stored in the file — no silent type coercion on read
+    &gt; ✓ CSV has no type information; pandas must infer types and can silently misread integers as floats.
+- [x] Columnar compression makes file sizes much smaller
+    &gt; ✓ Similar values in a column compress well together — Parquet files are often 5–10× smaller than equivalent CSVs.
+- [ ] Parquet files are human-readable in any text editor
+    &gt; ✗ Parquet is a binary format — you need a tool like DuckDB or pandas to inspect it.
+- [ ] Parquet is natively supported by Excel
+    &gt; ✗ Excel cannot open Parquet files without a plugin.
 </div>
 <hr>
 </section>
@@ -297,20 +290,18 @@ Select **all** that apply.
 shuffle_answers: true
 ---
 
-## Match each Python data structure to its key property!
+## Match each data loading approach to its best use case!
 
-- list :: Ordered, mutable sequence
-    &gt; Lists maintain insertion order and can be modified in place.
-- tuple :: Ordered, immutable sequence
-    &gt; Like a list but frozen — safe to use as a dictionary key.
-- dict :: Key-value store with unique keys
-    &gt; Maps unique keys to values; O(1) average lookup.
-- set :: Unordered collection of unique values
-    &gt; Deduplicates automatically; O(1) membership test.
-- :: Linked list
-    &gt; Python has no built-in linked list.
+- `pd.read_parquet()` at startup :: Dataset fits comfortably in memory
+    &gt; Fast and simple — load once, reuse throughout the session.
+- `ibis` + DuckDB lazy query :: Multi-GB file — push filters before loading
+    &gt; Only the query result enters memory; the full file never loads.
+- In-memory pre-sampled data :: Shinylive / WASM deployment
+    &gt; DuckDB file access silently fails in WASM — embed a small pre-sampled dataset instead.
+- :: Streaming from a REST API
+    &gt; None of these tools are designed for live API streaming.
 
-&gt; Think about mutability and ordering.
+&gt; Think about **where the data lives**, **how large it is**, and **what the runtime supports**.
 </div>
 </section>
 <section id="multi-match-classification" class="level3">
@@ -351,18 +342,18 @@ shuffle_answers: true
 shuffle_answers: true
 ---
 
-# What does `df.shape` return in pandas?
+# A Shiny app loads a 2 GB Parquet file at startup and crashes on Posit Connect. What is the right fix?
 
-&gt; `shape` is an attribute, not a method — no parentheses needed.
+&gt; Think about *when* data actually enters memory.
 
-1. [x] A tuple `(rows, columns)`
-    &gt; Correct — e.g. `(150, 5)` for a DataFrame with 150 rows and 5 columns.
-1. [ ] The number of rows only
-    &gt; `len(df)` gives the number of rows.
-1. [ ] A list of column names
-    &gt; `df.columns` gives column names.
-1. [ ] The total number of cells
-    &gt; `df.size` gives rows × columns.
+1. [x] Switch to `ibis` + DuckDB lazy loading — load only the query result
+    &gt; Correct — `.execute()` loads only the filtered rows. The full 2 GB file never enters RAM.
+1. [ ] Move the `pd.read_parquet()` call inside a `@reactive.calc`
+    &gt; The full file still enters memory on first use — the crash will still happen.
+1. [ ] Convert the Parquet to CSV, which uses less memory
+    &gt; CSV is larger than Parquet on disk, and still reads fully into memory.
+1. [ ] Increase the worker memory limit on Posit Connect
+    &gt; Scaling up is a patch — the right fix is to never load the full file.
 </div>
 </section>
 <section id="multiple-choice" class="level3">
@@ -373,22 +364,20 @@ shuffle_answers: true
 shuffle_answers: true
 ---
 
-## Which of the following are Python mutable types?
+## Which of the following are valid reasons to choose Parquet over CSV?
 
-&gt; A **mutable** object can be changed after it is created. An **immutable** object cannot.
+&gt; Parquet is a binary columnar format; CSV is plain-text row-by-row. Both store tabular data but make very different trade-offs.
 
-- [x] list
-    &gt; ✓ Lists can be modified — you can append, remove, and reassign elements.
-- [ ] tuple
-    &gt; ✗ Tuples are immutable — their contents cannot be changed after creation.
-- [x] dict
-    &gt; ✓ Dictionaries are mutable — keys and values can be added, changed, or removed.
-- [ ] str
-    &gt; ✗ Strings are immutable in Python — operations like `.upper()` return a new string.
-- [x] set
-    &gt; ✓ Sets are mutable — you can add and discard elements.
-- [ ] frozenset
-    &gt; ✗ `frozenset` is the immutable counterpart of `set`.
+- [x] Column-oriented storage enables faster column scans
+    &gt; ✓ Parquet reads only the columns requested — CSV must scan every row.
+- [x] Data types are stored in the file — no silent coercion on read
+    &gt; ✓ CSV has no type info; pandas must infer types and can silently misread values.
+- [x] Columnar compression makes file sizes much smaller
+    &gt; ✓ Similar values in a column compress well — often 5–10× smaller than equivalent CSVs.
+- [ ] Parquet files are human-readable in any text editor
+    &gt; ✗ Parquet is binary — you need DuckDB, pandas, or similar to inspect it.
+- [ ] Parquet is natively supported by Excel
+    &gt; ✗ Excel cannot open Parquet files without a plugin.
 </div>
 <hr>
 </section>
@@ -401,18 +390,17 @@ shuffle_answers: true
 shuffle_answers: true
 ---
 
-## Put the Git workflow steps in order!
+## Put the EDA steps in order!
 
-&gt; This is the standard cycle for contributing a change to a shared repository.
+&gt; Exploratory Data Analysis follows a natural progression — skipping early steps often leads to missed data quality issues.
 
-1. Create a feature branch from `main`
-2. Make and stage your changes (`git add`)
-3. Commit with a descriptive message (`git commit`)
-4. Push the branch to the remote (`git push`)
-5. Open a pull request
-6. Address review feedback
-7. Merge into `main`
-8. Delete the feature branch
+1. Load and inspect the raw data (`df.head()`, `.info()`, `.dtypes`)
+2. Check for missing values and duplicates
+3. Compute summary statistics (`df.describe()`)
+4. Visualize distributions of individual variables
+5. Explore relationships between variables (correlations, scatter plots)
+6. Identify and investigate outliers
+7. Document findings and decide on data cleaning steps
 </div>
 <hr>
 </section>
