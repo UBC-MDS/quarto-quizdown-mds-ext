@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ubc-mds.github.io/quarto-quizdown-mds-ext/example.html</loc>
-    <lastmod>2026-03-11T22:39:12.609Z</lastmod>
-  </url>
-  <url>
     <loc>https://ubc-mds.github.io/quarto-quizdown-mds-ext/matching-test.html</loc>
-    <lastmod>2026-03-11T22:39:12.610Z</lastmod>
+    <lastmod>2026-03-11T22:47:03.505Z</lastmod>
   </url>
   <url>
     <loc>https://ubc-mds.github.io/quarto-quizdown-mds-ext/index.html</loc>
-    <lastmod>2026-03-11T22:39:12.610Z</lastmod>
+    <lastmod>2026-03-11T22:47:03.505Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ubc-mds.github.io/quarto-quizdown-mds-ext/example.html</loc>
+    <lastmod>2026-03-11T22:47:03.505Z</lastmod>
   </url>
 </urlset>

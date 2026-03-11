@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-afa37c5c79185640b9c231024f4fe5ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/quizdown-0.6.0/quizdown.js"></script>
 <script src="site_libs/quarto-contrib/quizdown-0.6.0/quizdownKatex.js"></script>
 <script src="site_libs/quarto-contrib/quizdown-0.6.0/quizdownHighlight.js"></script>
@@ -155,9 +155,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#install" id="toc-install" class="nav-link active" data-scroll-target="#install">Install</a></li>
-  <li><a href="#question-types" id="toc-question-types" class="nav-link" data-scroll-target="#question-types">Question types</a></li>
-  <li><a href="#combined-quiz-all-types-together" id="toc-combined-quiz-all-types-together" class="nav-link" data-scroll-target="#combined-quiz-all-types-together">Combined quiz — all types together</a></li>
+  <li><a href="#try-it-full-quiz" id="toc-try-it-full-quiz" class="nav-link active" data-scroll-target="#try-it-full-quiz">Try it — full quiz</a></li>
+  <li><a href="#matching-and-classification-questions" id="toc-matching-and-classification-questions" class="nav-link" data-scroll-target="#matching-and-classification-questions">Matching and classification questions</a></li>
+  <li><a href="#multiple-choice-and-single-choice" id="toc-multiple-choice-and-single-choice" class="nav-link" data-scroll-target="#multiple-choice-and-single-choice">Multiple choice and single choice</a></li>
+  <li><a href="#sequence" id="toc-sequence" class="nav-link" data-scroll-target="#sequence">Sequence</a></li>
+  <li><a href="#print-review-mode" id="toc-print-review-mode" class="nav-link" data-scroll-target="#print-review-mode">Print review mode</a></li>
+  <li><a href="#embedding-quizzes-in-your-pages" id="toc-embedding-quizzes-in-your-pages" class="nav-link" data-scroll-target="#embedding-quizzes-in-your-pages">Embedding quizzes in your pages</a></li>
+  <li><a href="#how-it-works-the-syntax" id="toc-how-it-works-the-syntax" class="nav-link" data-scroll-target="#how-it-works-the-syntax">How it works — the syntax</a></li>
   <li><a href="#attributions" id="toc-attributions" class="nav-link" data-scroll-target="#attributions">Attributions</a></li>
   </ul>
 </nav>
@@ -184,150 +188,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Interactive quizzes for Quarto documents, powered by <a href="https://github.com/bonartm/quizdown-js">quizdown-js</a>. Fork of <a href="https://github.com/parmsam/quarto-quizdown">parmsam/quarto-quizdown</a>, extended with new question types and a print review mode.</p>
-<section id="install" class="level2">
-<h2 class="anchored" data-anchor-id="install">Install</h2>
+<p>Interactive quizzes for Quarto documents, powered by <a href="https://github.com/bonartm/quizdown-js">quizdown-js</a>. MDS fork of <a href="https://github.com/parmsam/quarto-quizdown">parmsam/quarto-quizdown</a>, extended with new question types and a print review mode.</p>
+<p><strong>Install:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> add UBC-MDS/quarto-quizdown-mds-ext</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then add the filter to your document front matter:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> quizdown</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Update an existing installation:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> update extension UBC-MDS/quarto-quizdown-mds-ext</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
-</section>
-<section id="question-types" class="level2">
-<h2 class="anchored" data-anchor-id="question-types">Question types</h2>
-<p>All questions live inside a <code>```quizdown</code> fenced code block. A single block can contain multiple questions — students navigate with the arrow buttons and submit all at once.</p>
-<section id="single-choice" class="level3">
-<h3 class="anchored" data-anchor-id="single-choice">Single choice</h3>
-<p>Use a <strong>numbered list</strong> where exactly one item is marked <code>[x]</code>. Optionally add a <code>&gt; blockquote</code> under any answer as per-option feedback.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Show syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Show syntax
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in"># What is 2 + 2?</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">1. [ ] 3</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">1. [x] 4</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Correct — basic arithmetic!</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">1. [ ] 5</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="quizdown">
----
-shuffle_answers: false
----
-
-# What is the output of `len([1, 2, 3])`?
-
-&gt; `len()` returns the number of items in a list.
-
-1. [ ] 1
-1. [ ] 2
-1. [x] 3
-    &gt; Correct — the list has 3 elements.
-1. [ ] 4
-</div>
-<hr>
-</section>
-<section id="multiple-choice" class="level3">
-<h3 class="anchored" data-anchor-id="multiple-choice">Multiple choice</h3>
-<p>Use an <strong>unordered list</strong> (with <code>-</code>) where one or more items are marked <code>[x]</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Show syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Show syntax
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Which are Python mutable types?</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">- [x] list</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Lists can be modified after creation.</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">- [ ] tuple</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Tuples are immutable.</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">- [x] dict</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Dictionaries are mutable.</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">- [ ] str</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Strings are immutable in Python.</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<div class="quizdown">
----
-shuffle_answers: false
----
-
-## Which of the following are Python mutable types?
-
-&gt; A mutable object can be changed after it is created.
-
-- [x] list
-    &gt; Lists can be modified after creation.
-- [ ] tuple
-    &gt; Tuples are immutable — you cannot change their contents.
-- [x] dict
-    &gt; Dictionaries are mutable — keys and values can be added or changed.
-- [ ] str
-    &gt; Strings are immutable in Python.
-- [x] set
-    &gt; Sets are mutable — you can add and remove elements.
-</div>
-<hr>
-</section>
-<section id="sequence" class="level3">
-<h3 class="anchored" data-anchor-id="sequence">Sequence</h3>
-<p>Use a <strong>numbered list without checkboxes</strong>. Students drag items into order.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Show syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Show syntax
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Put the steps in order!</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">1. Step one</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="in">2. Step two</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="in">3. Step three</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
+<section id="try-it-full-quiz" class="level2">
+<h2 class="anchored" data-anchor-id="try-it-full-quiz">Try it — full quiz</h2>
+<p>All five question types in one quiz. Answer everything, hit ✓✓ to evaluate, then <strong><code>Cmd/Ctrl+P</code></strong> to see the print review sheet.</p>
 <div class="quizdown">
 ---
 shuffle_answers: true
 ---
 
+# What is the output of this Python code?
+
+~~~python
+x = [2, 3, 4]
+x[2] = 9
+print(x[2])
+~~~
+
+&gt; Python lists are **zero-indexed** and **mutable** — `x[2]` is the third element.
+
+1. [x] 9
+    &gt; Correct — `x[2] = 9` overwrites the third element before `print` runs.
+1. [ ] 4
+    &gt; That was the original value at index 2 before the assignment.
+1. [ ] 2
+    &gt; 2 is the value at index 0.
+1. [ ] 3
+    &gt; 3 is the value at index 1.
+
+## Which of the following are supervised learning tasks?
+
+Select **all** that apply.
+
+&gt; In **supervised learning** the model learns from labeled examples — training data where the correct output (target) is already known.
+
+- [x] Predicting house prices from features like size and location
+    &gt; ✓ Supervised — the training data includes known sale prices (continuous target).
+- [ ] Grouping customers by purchasing behaviour with no labels
+    &gt; ✗ This is **clustering** — an unsupervised method with no target variable.
+- [x] Classifying email as spam or not spam
+    &gt; ✓ Supervised — human-labelled examples (spam / not spam) train the model.
+- [x] Forecasting tomorrow's temperature from historical weather data
+    &gt; ✓ Supervised — past temperature measurements are the labels.
+- [ ] Discovering latent topics in a corpus of documents
+    &gt; ✗ Topic modelling (e.g. LDA) is unsupervised — no labels provided.
+
 ## Put the supervised ML workflow steps in order!
 
-&gt; A typical supervised ML project follows this sequence from problem definition to deployment.
+&gt; A typical supervised ML project follows this sequence — getting the order wrong is a common source of data leakage and overfitting bugs.
 
 1. Define the problem and success metric
 2. Collect and clean data
@@ -335,40 +246,52 @@ shuffle_answers: true
 4. Feature engineering
 5. Split into train / validation / test sets
 6. Train and tune a model
-7. Evaluate on the test set
+7. Evaluate on the held-out test set
 8. Deploy and monitor
+
+## Match each Python data structure to its key property!
+
+- list :: Ordered, mutable sequence
+    &gt; Lists maintain insertion order and can be modified after creation — the most general-purpose container.
+- tuple :: Ordered, immutable sequence
+    &gt; Tuples are like lists but frozen — useful for dictionary keys and function return values.
+- dict :: Key-value store with unique keys
+    &gt; Dictionaries map unique keys to values; insertion order is preserved in Python 3.7+.
+- set :: Unordered collection of unique values
+    &gt; Sets deduplicate automatically — ideal for membership tests and set operations.
+- :: Linked list
+    &gt; Python has no built-in linked list, though `collections.deque` provides O(1) head/tail operations.
+
+&gt; Think about **mutability** and **ordering** — those two properties distinguish all four types.
+
+## Classify each ML task as Regression or Classification!
+
+The chips **Regression** and **Classification** are reusable — drag or click each to as many rows as needed.
+
+&gt; **Regression** predicts a *continuous* value (a number on a scale). **Classification** predicts a *category* (one of a finite set of classes).
+
+- Predict house price :: Regression
+    &gt; The output is a dollar amount — a continuous value.
+- Detect spam email :: Classification
+    &gt; The output is spam / not spam — a binary category.
+- Forecast next month's sales revenue :: Regression
+    &gt; Revenue is continuous — even though it's rounded to cents.
+- Identify the digit in a handwritten image :: Classification
+    &gt; The output is one of 10 discrete classes (0–9).
+- Estimate a patient's remaining hospital stay in days :: Regression
+    &gt; Days is a continuous (or at least ordinal) quantity.
+- Diagnose whether a tumour is malignant or benign :: Classification
+    &gt; A binary categorical outcome.
+- :: Clustering
+    &gt; Clustering is **unsupervised** — no target label is predicted.
 </div>
 <hr>
 </section>
-<section id="matching-1-to-1" class="level3">
-<h3 class="anchored" data-anchor-id="matching-1-to-1">Matching (1-to-1)</h3>
-<p>Use an <strong>unordered list</strong> with <code>Left :: Right</code> pairs. Each right chip belongs to exactly one left prompt. Add a distractor with <code>:: Value</code> (no left side). Per-pair feedback uses an indented <code>&gt;</code> blockquote.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Show syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Show syntax
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Match each term to its definition!</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Term A :: Definition A</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Feedback for this pair.</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Term B :: Definition B</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Red herring</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Feedback shown when this distractor is placed.</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Overall question hint.</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
+<section id="matching-and-classification-questions" class="level2">
+<h2 class="anchored" data-anchor-id="matching-and-classification-questions">Matching and classification questions</h2>
+<section id="to-1-matching" class="level3">
+<h3 class="anchored" data-anchor-id="to-1-matching">1-to-1 matching</h3>
+<p>Each right-side chip belongs to exactly one left prompt. Chips are consumed from the pool when placed. Distractors (<code>:: Value</code>) are chips that don’t match any prompt.</p>
 <div class="quizdown">
 ---
 shuffle_answers: true
@@ -377,50 +300,22 @@ shuffle_answers: true
 ## Match each Python data structure to its key property!
 
 - list :: Ordered, mutable sequence
-    &gt; Lists maintain insertion order and can be changed after creation.
+    &gt; Lists maintain insertion order and can be modified in place.
 - tuple :: Ordered, immutable sequence
-    &gt; Tuples are like lists but cannot be modified once created.
+    &gt; Like a list but frozen — safe to use as a dictionary key.
 - dict :: Key-value store with unique keys
-    &gt; Dictionaries map unique keys to values; order is preserved in Python 3.7+.
+    &gt; Maps unique keys to values; O(1) average lookup.
 - set :: Unordered collection of unique values
-    &gt; Sets automatically deduplicate — great for membership tests.
+    &gt; Deduplicates automatically; O(1) membership test.
 - :: Linked list
-    &gt; Python has no built-in linked list (though `collections.deque` is close).
+    &gt; Python has no built-in linked list.
 
 &gt; Think about mutability and ordering.
 </div>
-<hr>
 </section>
-<section id="matching-multi-match-classification-mds-addition" class="level3">
-<h3 class="anchored" data-anchor-id="matching-multi-match-classification-mds-addition">Matching (multi-match / classification) <em>(MDS addition)</em></h3>
-<p>When the <strong>same right-side label appears for multiple left items</strong>, it automatically becomes a <strong>reusable chip</strong> that stays in the pool after being placed — perfect for classify-into-bins tasks.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Show syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Show syntax
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Classify each task!</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Task A :: Category 1</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Feedback for Task A.</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Task B :: Category 2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Feedback for Task B.</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="in">- Task C :: Category 1</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Feedback for Task C — same chip as Task A.</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Red herring</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; This option is never correct.</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
+<section id="multi-match-classification" class="level3">
+<h3 class="anchored" data-anchor-id="multi-match-classification">Multi-match / classification</h3>
+<p>When the <strong>same right-side label appears more than once</strong>, it becomes a <strong>reusable chip</strong> that stays in the pool after being placed — perfect for classify-into-bins tasks.</p>
 <div class="quizdown">
 ---
 shuffle_answers: true
@@ -428,111 +323,7 @@ shuffle_answers: true
 
 ## Classify each ML task as Regression or Classification!
 
-&gt; Regression predicts a **continuous** value; Classification predicts a **category**.
-
-- Predict house price :: Regression
-    &gt; The target (price) is a continuous number.
-- Detect spam email :: Classification
-    &gt; The output is a category: spam or not spam.
-- Forecast stock return :: Regression
-    &gt; Returns are continuous values, not categories.
-- Identify handwritten digit :: Classification
-    &gt; Digits 0–9 are discrete categories.
-- Estimate delivery time :: Regression
-    &gt; Delivery time is a continuous quantity.
-- Diagnose disease from image :: Classification
-    &gt; Disease/no-disease is a categorical outcome.
-- :: Clustering
-    &gt; Clustering is unsupervised — there is no target label to predict.
-</div>
-<hr>
-</section>
-</section>
-<section id="combined-quiz-all-types-together" class="level2">
-<h2 class="anchored" data-anchor-id="combined-quiz-all-types-together">Combined quiz — all types together</h2>
-<p>A single quiz block with all five question types, showing how they work end-to-end including the <strong>print review</strong> (try <code>Cmd/Ctrl+P</code> after evaluating).</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Print review:</strong> after answering all questions and pressing ✓✓ (evaluate), press <code>Cmd/Ctrl+P</code>. The print dialog will show a static review sheet with your selections, correct answers, and feedback for every question.</p>
-</div>
-</div>
-<div class="quizdown">
----
-shuffle_answers: true
----
-
-# Single choice: Python indexing
-
-What is the value of `x[2]` after this code?
-
-~~~python
-x = [2, 3, 4]
-x[2] = 9
-print(x[2])
-~~~
-
-1. [x] 9
-    &gt; Correct — `x[2] = 9` overwrites index 2.
-1. [ ] 4
-    &gt; That was the original value before the assignment.
-1. [ ] 2
-1. [ ] 3
-
-## Multiple choice: supervised learning tasks
-
-Select **all** that apply.
-
-&gt; Supervised learning requires labeled training data.
-
-- [x] Predicting house prices
-    &gt; Yes — continuous labeled target.
-- [ ] Clustering customers
-    &gt; No — clustering is unsupervised.
-- [x] Classifying email as spam
-    &gt; Yes — categorical labeled target.
-- [x] Forecasting temperature
-    &gt; Yes — continuous labeled target.
-- [ ] Finding hidden topics in documents
-    &gt; No — topic modelling is unsupervised.
-
-## Sequence: ML workflow
-
-&gt; A typical supervised ML project follows this sequence.
-
-1. Define the problem and success metric
-2. Collect and clean data
-3. Exploratory data analysis
-4. Feature engineering
-5. Train and tune a model
-6. Evaluate on the test set
-7. Deploy and monitor
-
-## Matching (1-to-1): animals and sounds
-
-- Dog :: Woof
-    &gt; Dogs bark to communicate.
-- Cat :: Meow
-    &gt; Adult cats mostly meow to communicate with humans.
-- Cow :: Moo
-    &gt; Cows vocalize with low-frequency moo calls.
-- :: Neigh
-    &gt; Horses neigh — a distractor here.
-- :: Ribbit
-    &gt; Frogs ribbit — a distractor here.
-
-&gt; Think about farm and household animals.
-
-## Matching (multi-match): classify ML tasks
-
-Chips **Regression** and **Classification** are reusable.
+&gt; Regression → continuous target. Classification → categorical target.
 
 - Predict house price :: Regression
     &gt; The target (price) is a continuous number.
@@ -545,11 +336,253 @@ Chips **Regression** and **Classification** are reusable.
 - Estimate delivery time :: Regression
     &gt; Delivery time is a continuous quantity.
 - :: Clustering
-    &gt; Clustering is unsupervised — no target label.
-
-&gt; Regression → continuous. Classification → categorical.
+    &gt; Clustering is unsupervised — there is no target label to predict.
 </div>
 <hr>
+</section>
+</section>
+<section id="multiple-choice-and-single-choice" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-choice-and-single-choice">Multiple choice and single choice</h2>
+<section id="single-choice" class="level3">
+<h3 class="anchored" data-anchor-id="single-choice">Single choice</h3>
+<p>Exactly one correct answer. Use a <strong>numbered list</strong> (<code>1.</code>) with <code>[x]</code> on the correct option.</p>
+<div class="quizdown">
+---
+shuffle_answers: true
+---
+
+# What does `df.shape` return in pandas?
+
+&gt; `shape` is an attribute, not a method — no parentheses needed.
+
+1. [x] A tuple `(rows, columns)`
+    &gt; Correct — e.g. `(150, 5)` for a DataFrame with 150 rows and 5 columns.
+1. [ ] The number of rows only
+    &gt; `len(df)` gives the number of rows.
+1. [ ] A list of column names
+    &gt; `df.columns` gives column names.
+1. [ ] The total number of cells
+    &gt; `df.size` gives rows × columns.
+</div>
+</section>
+<section id="multiple-choice" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-choice">Multiple choice</h3>
+<p>One or more correct answers. Use an <strong>unordered list</strong> (<code>-</code>) with <code>[x]</code> on all correct options.</p>
+<div class="quizdown">
+---
+shuffle_answers: true
+---
+
+## Which of the following are Python mutable types?
+
+&gt; A **mutable** object can be changed after it is created. An **immutable** object cannot.
+
+- [x] list
+    &gt; ✓ Lists can be modified — you can append, remove, and reassign elements.
+- [ ] tuple
+    &gt; ✗ Tuples are immutable — their contents cannot be changed after creation.
+- [x] dict
+    &gt; ✓ Dictionaries are mutable — keys and values can be added, changed, or removed.
+- [ ] str
+    &gt; ✗ Strings are immutable in Python — operations like `.upper()` return a new string.
+- [x] set
+    &gt; ✓ Sets are mutable — you can add and discard elements.
+- [ ] frozenset
+    &gt; ✗ `frozenset` is the immutable counterpart of `set`.
+</div>
+<hr>
+</section>
+</section>
+<section id="sequence" class="level2">
+<h2 class="anchored" data-anchor-id="sequence">Sequence</h2>
+<p>Students drag items into the correct order. Use a <strong>numbered list without checkboxes</strong>.</p>
+<div class="quizdown">
+---
+shuffle_answers: true
+---
+
+## Put the Git workflow steps in order!
+
+&gt; This is the standard cycle for contributing a change to a shared repository.
+
+1. Create a feature branch from `main`
+2. Make and stage your changes (`git add`)
+3. Commit with a descriptive message (`git commit`)
+4. Push the branch to the remote (`git push`)
+5. Open a pull request
+6. Address review feedback
+7. Merge into `main`
+8. Delete the feature branch
+</div>
+<hr>
+</section>
+<section id="print-review-mode" class="level2">
+<h2 class="anchored" data-anchor-id="print-review-mode">Print review mode</h2>
+<p>After a student answers all questions and clicks <strong>✓✓ evaluate</strong>, pressing <strong><code>Cmd/Ctrl+P</code></strong> replaces the interactive quiz with a static review sheet showing:</p>
+<ul>
+<li>Every question with its <strong>student-selected answers</strong></li>
+<li>The <strong>correct answer(s)</strong> highlighted</li>
+<li><strong>Per-option / per-pair feedback</strong> written into the question</li>
+<li><strong>Pass / needs review</strong> status per question</li>
+</ul>
+<p>No navigation needed — all questions appear at once. This makes printed quizzes useful as study notes.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Try it:</strong> go back to the <a href="#try-it-full-quiz">full quiz</a> at the top, answer all five questions, click ✓✓, then press <code>Cmd/Ctrl+P</code>. The print dialog will show the full review sheet.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="embedding-quizzes-in-your-pages" class="level2">
+<h2 class="anchored" data-anchor-id="embedding-quizzes-in-your-pages">Embedding quizzes in your pages</h2>
+<section id="basic-usage" class="level3">
+<h3 class="anchored" data-anchor-id="basic-usage">Basic usage</h3>
+<p>Add the filter to your document front matter, then write a quiz inside a <code>```quizdown</code> code block:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  - quizdown</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="in">shuffle_answers: true</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">primary_color: "#4b75a8"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="in">## Question heading</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="in">Answer options here.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="quiz-inside-a-check-your-understanding-callout" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-inside-a-check-your-understanding-callout">Quiz inside a “Check your understanding” callout</h3>
+<p>You can embed a quiz directly inside a Quarto callout — students expand it when they’re ready:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true" title="✏️ Check your understanding"}</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">## Which of these is a supervised learning task?</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">1. [ ] Clustering customers by behaviour</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">1. [x] Predicting whether a loan will default</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Correct — the model is trained on historical loan outcomes (labels).</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">1. [ ] Dimensionality reduction with PCA</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Live example:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled" title="✏️ Check your understanding">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>✏️ Check your understanding
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="quizdown">
+---
+shuffle_answers: true
+---
+
+## Which of these is a supervised learning task?
+
+&gt; Supervised learning requires labelled training data — examples where the correct output is already known.
+
+1. [ ] Clustering customers by purchase behaviour
+    &gt; No — clustering is unsupervised. There is no target label.
+1. [x] Predicting whether a loan will default
+    &gt; Yes — the model is trained on historical loan outcomes (default / no default) as labels.
+1. [ ] Reducing 100 features to 2 dimensions with PCA
+    &gt; No — PCA is unsupervised dimensionality reduction.
+1. [ ] Grouping news articles by topic with LDA
+    &gt; No — LDA topic modelling is unsupervised.
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="quiz-configuration-options" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-configuration-options">Quiz configuration options</h3>
+<p>Pass YAML front matter inside the quiz block to configure it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">primary_color</span><span class="kw">:</span><span class="at"> </span><span class="st">"#4b75a8"</span><span class="co">   # accent colour (hex or CSS name)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">secondary_color</span><span class="kw">:</span><span class="at"> lightgray</span><span class="co">  # chip / background colour</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text_color</span><span class="kw">:</span><span class="at"> black</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">shuffle_questions</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">    # randomise question order</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">shuffle_answers</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">       # randomise answer/chip order</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="how-it-works-the-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works-the-syntax">How it works — the syntax</h2>
+<p>A single <code>```quizdown</code> block can hold multiple questions. Question type is inferred from the list syntax.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question type</th>
+<th>List syntax</th>
+<th>Correct marker</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Single choice</td>
+<td>Ordered list <code>1.</code></td>
+<td><code>[x]</code> on one item</td>
+</tr>
+<tr class="even">
+<td>Multiple choice</td>
+<td>Unordered list <code>-</code></td>
+<td><code>[x]</code> on one or more items</td>
+</tr>
+<tr class="odd">
+<td>Sequence</td>
+<td>Ordered list <code>1.</code></td>
+<td>No <code>[x]</code> — order is the answer</td>
+</tr>
+<tr class="even">
+<td>Matching / classification</td>
+<td>Unordered list <code>-</code></td>
+<td><code>Left :: Right</code> pairs</td>
+</tr>
+</tbody>
+</table>
+<section id="feedback-and-hints" class="level3">
+<h3 class="anchored" data-anchor-id="feedback-and-hints">Feedback and hints</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question heading</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Optional overall hint as a blockquote.</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Hint text shown when student clicks the lightbulb 💡.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[x]</span> Correct option</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Per-option feedback — shown after evaluation.</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Wrong option</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Explain why this is wrong.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For matching questions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Left prompt :: Right chip</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Per-pair feedback shown after evaluation.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>:: Distractor chip</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Shown when this distractor is placed in a slot.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
 </section>
 <section id="attributions" class="level2">
 <h2 class="anchored" data-anchor-id="attributions">Attributions</h2>
