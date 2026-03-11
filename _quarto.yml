@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "quizdown for Quarto (MDS)"
+  site-url: "https://ubc-mds.github.io/quarto-quizdown-mds-ext"
+  description: "Interactive quizzes for Quarto — matching, classification, and more"
+  navbar:
+    left:
+      - text: "Demo & Docs"
+        href: index.qmd
+    right:
+      - icon: github
+        href: https://github.com/UBC-MDS/quarto-quizdown-mds-ext
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
