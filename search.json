@@ -1,5 +1,47 @@
 [
   {
+    "objectID": "example.html",
+    "href": "example.html",
+    "title": "Quarto Quizdown Example",
+    "section": "",
+    "text": "A Quarto filter extension for writing short quizzes with a markdown-like syntax. It is based on the quizdown-js library and the hugo-quiz extension originally developed by bonartm:\nTry out the original live code editor for quizdown: https://bonartm.github.io/quizdown-live-editor/\nHere’s the README from the Github Repo, in case you missed it:"
+  },
+  {
+    "objectID": "example.html#install",
+    "href": "example.html#install",
+    "title": "Quarto Quizdown Example",
+    "section": "Install",
+    "text": "Install\nquarto add UBC-MDS/quarto-quizdown-mds-ext"
+  },
+  {
+    "objectID": "example.html#usage",
+    "href": "example.html#usage",
+    "title": "Quarto Quizdown Example",
+    "section": "Usage",
+    "text": "Usage\nAdd the filter to your document front matter:\n---\nfilters:\n  - quizdown\n---\nThen write quizzes inside a ```quizdown code block:\n```quizdown\n---\nshuffle_answers: true\n---\n\n## What is 2 + 2?\n\n- [ ] 3\n- [x] 4\n    &gt; Correct! Basic arithmetic.\n- [ ] 5\n```"
+  },
+  {
+    "objectID": "example.html#question-types",
+    "href": "example.html#question-types",
+    "title": "Quarto Quizdown Example",
+    "section": "Question types",
+    "text": "Question types\n\n\n\n\n\n\n\nType\nSyntax\n\n\n\n\nSingle choice\nOrdered list 1. [x]\n\n\nMultiple choice\nUnordered list - [x]\n\n\nSequence\nOrdered list without checkboxes\n\n\nMatching (fork addition)\n- Left :: Right\n\n\nClassification / multi-match (fork addition)\nSame syntax — repeated right label auto-detected\n\n\n\n\nTraditional matching (1-to-1)\nEach right chip maps to exactly one left prompt. Chips disappear from the pool once placed.\n```quizdown\n## Match each animal to its sound!\n\n- Dog :: Woof\n    &gt; Dogs bark to communicate.\n- Cat :: Meow\n    &gt; Adult cats meow mainly with humans.\n- Cow :: Moo\n- :: Neigh\n    &gt; Horses neigh — a distractor here.\n- :: Ribbit\n\n&gt; Think about farm and household animals.\n```\n\n\nClassification / multi-match\nWhen the same right-side label appears more than once, it automatically becomes a reusable chip that stays in the pool. Perfect for classify-into-bins tasks.\n```quizdown\n## Classify each ML task as Regression or Classification!\n\n- Predict house price :: Regression\n    &gt; The target (price) is a continuous number.\n- Detect spam email :: Classification\n    &gt; The target is a category: spam or not spam.\n- Forecast stock return :: Regression\n    &gt; Returns are continuous values, not categories.\n- Identify handwritten digit :: Classification\n    &gt; Digits 0–9 are discrete categories.\n- Estimate delivery time :: Regression\n- :: Clustering\n    &gt; Clustering is unsupervised — no target label to predict.\n\n&gt; Regression → continuous target. Classification → categorical target.\n```\nSyntax rules for both modes:\n\n\n\n\n\n\n\nSyntax\nMeaning\n\n\n\n\n- Left :: Right\nCorrect pair\n\n\n- :: Right\nDistractor chip (never correct for any prompt)\n\n\nIndented &gt; text under a pair\nPer-pair feedback shown after evaluation\n\n\nIndented &gt; text under a distractor\nFeedback shown when distractor is placed\n\n\nTop-level &gt; text\nOverall question feedback / hint"
+  },
+  {
+    "objectID": "example.html#print-review-mode",
+    "href": "example.html#print-review-mode",
+    "title": "Quarto Quizdown Example",
+    "section": "Print review mode",
+    "text": "Print review mode\nWhen a student prints the page (Cmd/Ctrl+P), the interactive widget is replaced with a static review sheet showing selected answers, correct answers, per-pair feedback, distractor feedback, and question-level status for all question types. No need to navigate to the results screen first."
+  },
+  {
+    "objectID": "example.html#attributions",
+    "href": "example.html#attributions",
+    "title": "Quarto Quizdown Example",
+    "section": "Attributions",
+    "text": "Attributions\n\nOriginal Quarto extension: parmsam/quarto-quizdown (MIT, Sam Parmar 2025)\nquizdown-js library: bonartm/quizdown-js (MIT, Malte Bonart 2020-21)"
+  },
+  {
     "objectID": "matching-test.html",
     "href": "matching-test.html",
     "title": "Matching — backward-compat & multi-match test",
@@ -54,47 +96,5 @@
     "title": "quizdown for Quarto, MDS fork",
     "section": "Attributions",
     "text": "Attributions\n\nOriginal Quarto extension: parmsam/quarto-quizdown (MIT, Sam Parmar 2025)\nquizdown-js library: bonartm/quizdown-js (MIT, Malte Bonart 2020–21)"
-  },
-  {
-    "objectID": "example.html",
-    "href": "example.html",
-    "title": "Quarto Quizdown Example",
-    "section": "",
-    "text": "A Quarto filter extension for writing short quizzes with a markdown-like syntax. It is based on the quizdown-js library and the hugo-quiz extension originally developed by bonartm:\nTry out the original live code editor for quizdown: https://bonartm.github.io/quizdown-live-editor/\nHere’s the README from the Github Repo, in case you missed it:"
-  },
-  {
-    "objectID": "example.html#install",
-    "href": "example.html#install",
-    "title": "Quarto Quizdown Example",
-    "section": "Install",
-    "text": "Install\nquarto add UBC-MDS/quarto-quizdown-mds-ext"
-  },
-  {
-    "objectID": "example.html#usage",
-    "href": "example.html#usage",
-    "title": "Quarto Quizdown Example",
-    "section": "Usage",
-    "text": "Usage\nAdd the filter to your document front matter:\n---\nfilters:\n  - quizdown\n---\nThen write quizzes inside a ```quizdown code block:\n```quizdown\n---\nshuffle_answers: true\n---\n\n## What is 2 + 2?\n\n- [ ] 3\n- [x] 4\n    &gt; Correct! Basic arithmetic.\n- [ ] 5\n```"
-  },
-  {
-    "objectID": "example.html#question-types",
-    "href": "example.html#question-types",
-    "title": "Quarto Quizdown Example",
-    "section": "Question types",
-    "text": "Question types\n\n\n\n\n\n\n\nType\nSyntax\n\n\n\n\nSingle choice\nOrdered list 1. [x]\n\n\nMultiple choice\nUnordered list - [x]\n\n\nSequence\nOrdered list without checkboxes\n\n\nMatching (fork addition)\n- Left :: Right\n\n\nClassification / multi-match (fork addition)\nSame syntax — repeated right label auto-detected\n\n\n\n\nTraditional matching (1-to-1)\nEach right chip maps to exactly one left prompt. Chips disappear from the pool once placed.\n```quizdown\n## Match each animal to its sound!\n\n- Dog :: Woof\n    &gt; Dogs bark to communicate.\n- Cat :: Meow\n    &gt; Adult cats meow mainly with humans.\n- Cow :: Moo\n- :: Neigh\n    &gt; Horses neigh — a distractor here.\n- :: Ribbit\n\n&gt; Think about farm and household animals.\n```\n\n\nClassification / multi-match\nWhen the same right-side label appears more than once, it automatically becomes a reusable chip that stays in the pool. Perfect for classify-into-bins tasks.\n```quizdown\n## Classify each ML task as Regression or Classification!\n\n- Predict house price :: Regression\n    &gt; The target (price) is a continuous number.\n- Detect spam email :: Classification\n    &gt; The target is a category: spam or not spam.\n- Forecast stock return :: Regression\n    &gt; Returns are continuous values, not categories.\n- Identify handwritten digit :: Classification\n    &gt; Digits 0–9 are discrete categories.\n- Estimate delivery time :: Regression\n- :: Clustering\n    &gt; Clustering is unsupervised — no target label to predict.\n\n&gt; Regression → continuous target. Classification → categorical target.\n```\nSyntax rules for both modes:\n\n\n\n\n\n\n\nSyntax\nMeaning\n\n\n\n\n- Left :: Right\nCorrect pair\n\n\n- :: Right\nDistractor chip (never correct for any prompt)\n\n\nIndented &gt; text under a pair\nPer-pair feedback shown after evaluation\n\n\nIndented &gt; text under a distractor\nFeedback shown when distractor is placed\n\n\nTop-level &gt; text\nOverall question feedback / hint"
-  },
-  {
-    "objectID": "example.html#print-review-mode",
-    "href": "example.html#print-review-mode",
-    "title": "Quarto Quizdown Example",
-    "section": "Print review mode",
-    "text": "Print review mode\nWhen a student prints the page (Cmd/Ctrl+P), the interactive widget is replaced with a static review sheet showing selected answers, correct answers, per-pair feedback, distractor feedback, and question-level status for all question types. No need to navigate to the results screen first."
-  },
-  {
-    "objectID": "example.html#attributions",
-    "href": "example.html#attributions",
-    "title": "Quarto Quizdown Example",
-    "section": "Attributions",
-    "text": "Attributions\n\nOriginal Quarto extension: parmsam/quarto-quizdown (MIT, Sam Parmar 2025)\nquizdown-js library: bonartm/quizdown-js (MIT, Malte Bonart 2020-21)"
   }
 ]
