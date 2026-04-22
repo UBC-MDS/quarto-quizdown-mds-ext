@@ -200,18 +200,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 shuffle_answers: true
 ---
 
-## Match each data loading approach to its best use case!
+## Match each scenario to the right data loading approach!
 
-- `pd.read_parquet()` at startup :: Small dataset that fits comfortably in memory
+- Small dataset that fits comfortably in memory :: `pd.read_parquet()` at startup
     &gt; Fast and simple — load once at startup, reuse throughout the session.
-- `ibis` + DuckDB lazy query :: Large file — push filters before loading
-    &gt; Only the query result enters memory; the full file never loads. Ideal for multi-GB Parquet.
-- In-memory pre-sampled data :: Shinylive / WASM deployment
+- Multi-GB Parquet file that must be filtered before analysis :: `ibis` + DuckDB lazy query
+    &gt; Only the query result enters memory; the full file never loads.
+- Deploying a Shinylive / WASM app where DuckDB file access fails :: In-memory pre-sampled data
     &gt; DuckDB file access silently fails in WASM — embed a small pre-sampled dataset instead.
-- `@reactive.calc` with eager load :: Slow computation shared by multiple outputs
+- Slow computation shared by multiple Shiny outputs :: `@reactive.calc` with eager load
     &gt; Load eagerly, then cache the filtered result so downstream outputs don't re-run the query.
-- :: Streaming from a REST API
-    &gt; REST streaming is a separate pattern — none of the above tools are designed for it.
+- :: `spark.read.parquet()` on a cluster
+    &gt; Spark is for distributed cluster computing — overkill for these single-machine scenarios.
 
 &gt; Think about **where the data lives**, **how large it is**, and **what the runtime environment supports**.
 
@@ -284,11 +284,43 @@ Select **all** that apply.
 <h2 class="anchored" data-anchor-id="question-examples">Question examples</h2>
 <section id="matching-and-classification-questions" class="level3">
 <h3 class="anchored" data-anchor-id="matching-and-classification-questions">Matching and classification questions</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="Item design: situations on the left, answers on the right">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Item design: situations on the left, answers on the right
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Place <strong>situations, scenarios, or descriptions</strong> on the left (prompts) and <strong>answers, categories, or technologies</strong> on the right (chips). This mirrors expert reasoning: <em>given a situation, identify the right response</em>. It also makes the question harder to solve by elimination alone, because situations are richer and less interchangeable than short labels.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Distractor fading">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Distractor fading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Distractors (chips with no correct match) strengthen discrimination — <strong>three</strong> is a good default. Consider a <strong>fading</strong> approach within a quiz block:</p>
+<ol type="1">
+<li><strong>First question</strong> — no distractors. Lets students activate the relevant schema and build confidence through retrieval practice.</li>
+<li><strong>Follow-up matching</strong> — add distractors to require finer discrimination.</li>
+<li><strong>Later questions</strong> — mix in MCQ, ordering, or other types to vary the cognitive demand.</li>
+</ol>
+<p>This scaffolded progression moves from schema activation to discrimination without overwhelming students on the first item.</p>
+</div>
+</div>
 <section id="to-1-matching" class="level4">
 <h4 class="anchored" data-anchor-id="to-1-matching">1-to-1 matching</h4>
 <p>Each right-side chip belongs to exactly one left prompt. Placed chips stay in the pool but appear dimmed so students can track progress. Distractors (<code>:: Value</code>) are chips that don’t match any prompt.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -297,20 +329,29 @@ Select **all** that apply.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Match X to Y!</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Match each scenario to the right data loading approach!</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Left prompt :: Right chip</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Per-pair feedback shown after evaluation.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Another prompt :: Another chip</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Feedback for this pair.</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Distractor chip</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Shown when this distractor is placed in a slot.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Overall hint shown when student clicks 💡.</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Small dataset that fits in memory :: `pd.read_parquet()`</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Correct-pair feedback: shown after evaluation,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; regardless of whether the student got it right.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="in">- Multi-GB file — must filter first :: `ibis` + DuckDB</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Pair feedback explains *why* this pairing is correct.</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="in">- :: `spark.read.parquet()` on a cluster</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Distractor feedback: shown when a student places</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; this chip in any slot and evaluates.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Hint text — shown when the student clicks the 💡 button.</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>Situation :: Answer</code> — a correct pair</li>
+<li>Indented <code>&gt;</code> under a pair — <strong>pair feedback</strong>, shown after evaluation for that row</li>
+<li><code>:: Answer</code> (no left side) — a <strong>distractor</strong> chip with no correct match</li>
+<li>Indented <code>&gt;</code> under a distractor — <strong>distractor feedback</strong>, shown when the student places it and evaluates</li>
+<li>Top-level <code>&gt;</code> — <strong>hint</strong>, shown on 💡 click</li>
+</ul>
 </div>
 </div>
 </div>
@@ -319,16 +360,16 @@ Select **all** that apply.
 shuffle_answers: true
 ---
 
-## Match each data loading approach to its best use case!
+## Match each scenario to the right data loading approach!
 
-- `pd.read_parquet()` at startup :: Dataset fits comfortably in memory
+- Small dataset that fits comfortably in memory :: `pd.read_parquet()` at startup
     &gt; Fast and simple — load once, reuse throughout the session.
-- `ibis` + DuckDB lazy query :: Multi-GB file — push filters before loading
+- Multi-GB file — must filter before loading :: `ibis` + DuckDB lazy query
     &gt; Only the query result enters memory; the full file never loads.
-- In-memory pre-sampled data :: Shinylive / WASM deployment
+- Shinylive / WASM app where DuckDB file access fails :: In-memory pre-sampled data
     &gt; DuckDB file access silently fails in WASM — embed a small pre-sampled dataset instead.
-- :: Streaming from a REST API
-    &gt; None of these tools are designed for live API streaming.
+- :: `spark.read.parquet()` on a cluster
+    &gt; Spark is for distributed cluster computing — not needed here.
 
 &gt; Think about **where the data lives**, **how large it is**, and **what the runtime supports**.
 </div>
@@ -337,7 +378,7 @@ shuffle_answers: true
 <h4 class="anchored" data-anchor-id="multi-match-classification">Multi-match / classification</h4>
 <p>When the <strong>same right-side label appears more than once</strong>, it becomes a <strong>reusable chip</strong> that can be placed in multiple slots — perfect for classify-into-bins tasks.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -346,18 +387,24 @@ shuffle_answers: true
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Classify each item!</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Classify each ML task as Regression or Classification!</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Item A :: Category 1</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">- Item B :: Category 2</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Item C :: Category 1</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Distractor</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Hint: repeated right-side values become reusable chips.</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Predict house price :: Regression</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Pair feedback: the target (price) is continuous.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Detect spam email :: Classification</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Pair feedback: the target is a category.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">- Forecast stock return :: Regression</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Clustering</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Distractor feedback: shown when a student places</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Clustering in any slot and evaluates.</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Hint: Regression → continuous target.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Classification → categorical target.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Same syntax as 1-to-1 matching. When the <strong>same right-side label repeats</strong> (e.g., <code>Regression</code> appears on multiple rows), it automatically becomes a reusable chip.</p>
 </div>
 </div>
 </div>
@@ -392,7 +439,7 @@ shuffle_answers: true
 <h4 class="anchored" data-anchor-id="single-choice">Single choice</h4>
 <p>Exactly one correct answer. Use a <strong>numbered list</strong> (<code>1.</code>) with <code>[x]</code> on the correct option.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -401,7 +448,7 @@ shuffle_answers: true
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in"># Question heading</span></span>
@@ -441,7 +488,7 @@ shuffle_answers: true
 <h4 class="anchored" data-anchor-id="multiple-choice">Multiple choice</h4>
 <p>One or more correct answers. Use an <strong>unordered list</strong> (<code>-</code>) with <code>[x]</code> on all correct options.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -450,7 +497,7 @@ shuffle_answers: true
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Question heading</span></span>
@@ -494,7 +541,7 @@ shuffle_answers: true
 <h3 class="anchored" data-anchor-id="sequence">Sequence</h3>
 <p>Students drag items into the correct order. Use a <strong>numbered list without checkboxes</strong>.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Syntax">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -503,7 +550,7 @@ shuffle_answers: true
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Put these steps in order!</span></span>
@@ -601,7 +648,7 @@ Tip
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Live example:</strong></p>
 <div class="callout callout-style-default callout-note callout-titled" title="✏️ Check your understanding">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -610,7 +657,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="quizdown">
 ---
@@ -698,11 +745,12 @@ shuffle_answers: true
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Per-option feedback — shown after evaluation.</span></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Wrong option</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Explain why this is wrong.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>For matching questions:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Left prompt :: Right chip</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Per-pair feedback shown after evaluation.</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>:: Distractor chip</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Shown when this distractor is placed in a slot.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For matching and classification questions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Situation or scenario :: Answer or label</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Per-pair feedback — shown after evaluation for this row.</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>:: Distractor answer</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; Distractor feedback — shown when the student places</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">    &gt; this chip in any slot and evaluates.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
 </section>
