@@ -46,11 +46,11 @@ shuffle_answers: true
 | Multiple choice | Unordered list `- [x]` |
 | Sequence | Ordered list without checkboxes |
 | **Matching** *(fork addition)* | `- Left :: Right` |
-| **Classification / multi-match** *(fork addition)* | Same syntax — repeated right label auto-detected |
+| **Classification / multi-match** *(fork addition)* | Same syntax: repeated right label auto-detected |
 
 ### Traditional matching (1-to-1)
 
-Each right chip maps to exactly one left prompt. Chips disappear from the pool once placed.
+Each right chip maps to exactly one left prompt. Placed chips stay in the pool but appear dimmed so students can track progress.
 
 ````markdown
 ```quizdown
@@ -62,7 +62,7 @@ Each right chip maps to exactly one left prompt. Chips disappear from the pool o
     > Adult cats meow mainly with humans.
 - Cow :: Moo
 - :: Neigh
-    > Horses neigh — a distractor here.
+    > Horses neigh. This is a distractor.
 - :: Ribbit
 
 > Think about farm and household animals.
@@ -87,7 +87,7 @@ When the **same right-side label appears more than once**, it automatically beco
     > Digits 0–9 are discrete categories.
 - Estimate delivery time :: Regression
 - :: Clustering
-    > Clustering is unsupervised — no target label to predict.
+    > Clustering is unsupervised: no target label to predict.
 
 > Regression → continuous target. Classification → categorical target.
 ```
