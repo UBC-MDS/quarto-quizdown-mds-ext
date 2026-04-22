@@ -111,7 +111,7 @@ Select **all** that apply.
 
 #### 1-to-1 matching
 
-Each right-side chip belongs to exactly one left prompt. Chips are consumed from the pool when placed. Distractors (`:: Value`) are chips that don't match any prompt.
+Each right-side chip belongs to exactly one left prompt. Placed chips stay in the pool but appear dimmed so students can track progress. Distractors (`:: Value`) are chips that don't match any prompt.
 
 ::: {.callout-note collapse="true" title="Syntax"}
 ````markdown
@@ -151,7 +151,7 @@ shuffle_answers: true
 
 #### Multi-match / classification
 
-When the **same right-side label appears more than once**, it becomes a **reusable chip** that stays in the pool after being placed — perfect for classify-into-bins tasks.
+When the **same right-side label appears more than once**, it becomes a **reusable chip** that can be placed in multiple slots — perfect for classify-into-bins tasks.
 
 ::: {.callout-note collapse="true" title="Syntax"}
 ````markdown

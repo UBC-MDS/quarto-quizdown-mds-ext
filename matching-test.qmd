@@ -48,4 +48,15 @@ Two reusable chips (Regression, Classification) plus one distractor (Clustering)
     > Clustering is unsupervised learning — there is no target label to predict.
 
 > Regression → continuous target. Classification → categorical target.
+
+## Q3 (Long stems): Classify each compute scenario as local, on-premises, or cloud
+
+- You run a pandas notebook on your MacBook Pro, reading a 500 MB CSV from your Downloads folder :: Local
+- You SSH into Sockeye — UBC's research computing cluster — with your CWL credentials and submit a Slurm job against your allocation :: On-premises
+- A labmate set up JupyterHub on a server the lab purchased. You access it by IP. When it crashes, your labmate fixes it :: On-premises
+- You launch a t3a.xlarge, run the pipeline for 2 hours, stop the instance, and are charged $0.34. You owe nothing more until you start it again :: Cloud
+- Your team provisions 5 identical environments for a 3-week project, each with 32 GB RAM. When the project ends, you delete them all and billing stops :: Cloud
+- :: Edge
+
+> Local = your own machine. On-premises = institution-owned servers. Cloud = provider-managed, pay-per-use.
 ```
