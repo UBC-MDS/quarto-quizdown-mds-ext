@@ -103,6 +103,18 @@ When the **same right-side label appears more than once**, it automatically beco
 | Indented `> text` under a distractor | Feedback shown when distractor is placed |
 | Top-level `> text` | Overall question feedback / hint |
 
+**Separator.** A spaced ` :: ` separates the two sides, so `::` inside code or names
+(`dplyr::filter`, `` `std::vector` ``) stays in the text: `- dplyr::filter :: keeps rows`.
+Lines without a spaced separator split at the first `::`, as before.
+
+**Chip placement.** Decided per question, never per chip, so placing a chip reveals nothing
+about the answer key. In a classification question (some chip correct for 2+ rows) every chip,
+distractors included, can sit on several rows. In a 1:1 question, placing a chip on a new row
+moves it there. Override with `reuse_chips: true` / `false` in the quiz YAML (`false` is an
+error when a chip is correct for several rows). Dragging a chip out of a row always moves it.
+A chip text listed twice (e.g. `- :: Woof` next to `- Dog :: Woof`) is shown once, with a
+warning in the browser console.
+
 ## Print review mode
 
 When a student prints the page (`Cmd/Ctrl+P`), the interactive widget is replaced with a static review sheet showing selected answers, correct answers, per-pair feedback, distractor feedback, and question-level status for all question types. No need to navigate to the results screen first.
