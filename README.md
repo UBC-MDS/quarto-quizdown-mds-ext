@@ -2,7 +2,7 @@
 
 A Quarto extension for interactive quizzes using [quizdown-js](https://github.com/bonartm/quizdown-js), extended with a matching question type, feedback after evaluation, partial credit, keyboard access and a print review sheet.
 
-> **Fork of** [parmsam/quarto-quizdown](https://github.com/parmsam/quarto-quizdown) · upstream quizdown-js by [bonartm](https://github.com/bonartm/quizdown-js) · Both MIT licensed. Current version: 1.3.1.
+> **Fork of** [parmsam/quarto-quizdown](https://github.com/parmsam/quarto-quizdown) · upstream quizdown-js by [bonartm](https://github.com/bonartm/quizdown-js) · Both MIT licensed. Current version: 1.3.2.
 
 ## Install
 
@@ -144,6 +144,7 @@ A YAML block at the top of the quizdown block, before the first heading:
 |---|---|---|
 | `shuffle_answers` | `true` | Shuffle options, sequence items and matching chips (sequence questions always shuffle) |
 | `shuffle_questions` | `false` | Shuffle question order |
+| `shuffle_stems` | `false` | Shuffle the prompts of a matching question; independent of `shuffle_answers`, which shuffles the chips |
 | `nQuestions` | all | Show only this many (shuffled) questions |
 | `primary_color` | `steelblue` | Accents, selected borders, progress bar |
 | `secondary_color` | `#eef3f8` | Option, prompt and hover background (a slight blue) |
@@ -212,7 +213,7 @@ The results show a fractional total with one decimal (`1.1/2`), rounded to the n
 
 ### Chip placement (`reuse_chips`)
 
-Whether a placed chip can also fill another row is decided per question, never per chip, so placing a chip reveals nothing about the answer key. In a classification question (some chip correct for 2+ rows) every chip can sit on several rows; in a 1:1 question, placing a chip on a new row moves it there. Override with `reuse_chips: true` / `false` (`false` is an error when a chip is correct for several rows). Dragging a chip out of a row always moves it.
+Whether a placed chip can also fill another row is decided per question, never per chip, so placing a chip reveals nothing about the answer key. In a classification question (some chip correct for 2+ rows) every chip can sit on several rows; in a 1:1 question, placing a chip on a new row moves it there. Override with `reuse_chips: true` / `false` (`false` is an error when a chip is correct for several rows). Dragging a chip out of a row always moves it. `shuffle_stems: true` shuffles the prompts as well and changes nothing about placement.
 
 ### Hand-written blocks
 
