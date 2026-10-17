@@ -81,10 +81,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/quizdown-1.3.0/quizdown.js"></script>
-<script src="site_libs/quarto-contrib/quizdown-1.3.0/quizdownKatex.js"></script>
-<script src="site_libs/quarto-contrib/quizdown-1.3.0/quizdownHighlight.js"></script>
-<script src="site_libs/quarto-contrib/quizdown-1.3.0/quizdown-init.js"></script>
+<script src="site_libs/quarto-contrib/quizdown-1.3.1/quizdown.js"></script>
+<script src="site_libs/quarto-contrib/quizdown-1.3.1/quizdownKatex.js"></script>
+<script src="site_libs/quarto-contrib/quizdown-1.3.1/quizdownHighlight.js"></script>
+<script src="site_libs/quarto-contrib/quizdown-1.3.1/quizdown-init.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -165,7 +165,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install">Install</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   <li><a href="#question-types" id="toc-question-types" class="nav-link" data-scroll-target="#question-types">Question types</a></li>
-  <li><a href="#print-review-mode" id="toc-print-review-mode" class="nav-link" data-scroll-target="#print-review-mode">Print review mode</a></li>
+  <li><a href="#what-students-see" id="toc-what-students-see" class="nav-link" data-scroll-target="#what-students-see">What students see</a></li>
+  <li><a href="#customization" id="toc-customization" class="nav-link" data-scroll-target="#customization">Customization</a></li>
   <li><a href="#attributions" id="toc-attributions" class="nav-link" data-scroll-target="#attributions">Attributions</a></li>
   </ul></li>
   </ul>
@@ -275,9 +276,9 @@ What do dogs sound like?
 <p>Here’s the README from the Github Repo, in case you missed it:</p>
 <section id="quarto-quizdown-mds-ext" class="level1">
 <h1>quarto-quizdown-mds-ext</h1>
-<p>A Quarto extension for interactive quizzes using <a href="https://github.com/bonartm/quizdown-js">quizdown-js</a>, extended with additional question types and review features.</p>
+<p>A Quarto extension for interactive quizzes using <a href="https://github.com/bonartm/quizdown-js">quizdown-js</a>, extended with a matching question type, feedback after evaluation, partial credit, keyboard access and a print review sheet.</p>
 <blockquote class="blockquote">
-<p><strong>Fork of</strong> <a href="https://github.com/parmsam/quarto-quizdown">parmsam/quarto-quizdown</a> · upstream quizdown-js by <a href="https://github.com/bonartm/quizdown-js">bonartm</a> · Both MIT licensed.</p>
+<p><strong>Fork of</strong> <a href="https://github.com/parmsam/quarto-quizdown">parmsam/quarto-quizdown</a> · upstream quizdown-js by <a href="https://github.com/bonartm/quizdown-js">bonartm</a> · Both MIT licensed. Current version: 1.3.1.</p>
 </blockquote>
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">Install</h2>
@@ -290,7 +291,7 @@ What do dogs sound like?
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filters</span><span class="kw">:</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> quizdown</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then write quizzes inside a <code>```quizdown</code> code block:</p>
+<p>Then write quizzes inside a <code>```quizdown</code> code block. One block is one quiz; each <code>##</code> heading is one question.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="in">shuffle_answers: true</span></span>
@@ -320,15 +321,15 @@ What do dogs sound like?
 <tbody>
 <tr class="odd">
 <td>Single choice</td>
-<td>Ordered list <code>1. [x]</code></td>
+<td>Ordered list with checkboxes, <code>1. [x]</code></td>
 </tr>
 <tr class="even">
 <td>Multiple choice</td>
-<td>Unordered list <code>- [x]</code></td>
+<td>Unordered list with checkboxes, <code>- [x]</code></td>
 </tr>
 <tr class="odd">
 <td>Sequence</td>
-<td>Ordered list without checkboxes</td>
+<td>Ordered list without checkboxes; the authored order is the answer</td>
 </tr>
 <tr class="even">
 <td><strong>Matching</strong> <em>(fork addition)</em></td>
@@ -336,13 +337,43 @@ What do dogs sound like?
 </tr>
 <tr class="odd">
 <td><strong>Classification / multi-match</strong> <em>(fork addition)</em></td>
-<td>Same syntax: repeated right label auto-detected</td>
+<td>Same syntax; a right label that repeats becomes a reusable chip</td>
 </tr>
 </tbody>
 </table>
-<section id="traditional-matching-1-to-1" class="level3">
-<h3 class="anchored" data-anchor-id="traditional-matching-1-to-1">Traditional matching (1-to-1)</h3>
-<p>Each right chip maps to exactly one left prompt. Placed chips stay in the pool but appear dimmed so students can track progress.</p>
+<section id="feedback-and-hints" class="level3">
+<h3 class="anchored" data-anchor-id="feedback-and-hints">Feedback and hints</h3>
+<p>These work the same way for every type:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Syntax</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Indented <code>&gt; text</code> under an option, item or pair</td>
+<td>Comment for that option, shown after Evaluate</td>
+</tr>
+<tr class="even">
+<td>Top-level <code>&gt; text</code> in a question</td>
+<td>Hint, shown before answering when the student presses the lightbulb</td>
+</tr>
+<tr class="odd">
+<td>Paragraph or code block under the heading</td>
+<td>Context shown with the question, before answering</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="matching-1-to-1" class="level3">
+<h3 class="anchored" data-anchor-id="matching-1-to-1">Matching (1-to-1)</h3>
+<p>Each right chip belongs to exactly one left prompt. Placing a chip on a second row moves it.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Match each animal to its sound!</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -352,33 +383,11 @@ What do dogs sound like?
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Adult cats meow mainly with humans.</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">- Cow :: Moo</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Neigh</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Horses neigh. This is a distractor.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Horses neigh — a distractor here.</span></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Ribbit</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Think about farm and household animals.</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="classification-multi-match" class="level3">
-<h3 class="anchored" data-anchor-id="classification-multi-match">Classification / multi-match</h3>
-<p>When the <strong>same right-side label appears more than once</strong>, it automatically becomes a reusable chip that stays in the pool. Perfect for classify-into-bins tasks.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Classify each ML task as Regression or Classification!</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Predict house price :: Regression</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; The target (price) is a continuous number.</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Detect spam email :: Classification</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; The target is a category: spam or not spam.</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">- Forecast stock return :: Regression</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Returns are continuous values, not categories.</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">- Identify handwritten digit :: Classification</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Digits 0–9 are discrete categories.</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="in">- Estimate delivery time :: Regression</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Clustering</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Clustering is unsupervised: no target label to predict.</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Regression → continuous target. Classification → categorical target.</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Syntax rules for both modes:</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 47%">
@@ -401,25 +410,301 @@ What do dogs sound like?
 </tr>
 <tr class="odd">
 <td>Indented <code>&gt; text</code> under a pair</td>
-<td>Per-pair feedback shown after evaluation</td>
+<td>Feedback for that pair after Evaluate</td>
 </tr>
 <tr class="even">
 <td>Indented <code>&gt; text</code> under a distractor</td>
-<td>Feedback shown when distractor is placed</td>
-</tr>
-<tr class="odd">
-<td>Top-level <code>&gt; text</code></td>
-<td>Overall question feedback / hint</td>
+<td>Feedback shown when the distractor is placed</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Separator.</strong> A spaced <code>::</code> separates the two sides, so <code>::</code> inside code or names (<code>dplyr::filter</code>, <code>`std::vector`</code>) stays in the text: <code>- dplyr::filter :: keeps rows</code>. Lines without a spaced separator split at the first <code>::</code>, as before.</p>
-<p><strong>Chip placement.</strong> Decided per question, never per chip, so placing a chip reveals nothing about the answer key. In a classification question (some chip correct for 2+ rows) every chip, distractors included, can sit on several rows. In a 1:1 question, placing a chip on a new row moves it there. Override with <code>reuse_chips: true</code> / <code>false</code> in the quiz YAML (<code>false</code> is an error when a chip is correct for several rows). Dragging a chip out of a row always moves it. A chip text listed twice (e.g.&nbsp;<code>- :: Woof</code> next to <code>- Dog :: Woof</code>) is shown once, with a warning in the browser console.</p>
+<p>The separator is a spaced <code>::</code>, so <code>::</code> inside code or names (<code>dplyr::filter</code>, <code>`std::vector`</code>) stays in the text: <code>- dplyr::filter :: keeps rows</code>. A line without a spaced separator splits at the first <code>::</code>, as in older quizzes. A line with no <code>::</code> at all (a typo such as <code>- Dog : Woof</code>) is skipped with a warning in the browser console, as is a chip text listed twice.</p>
+</section>
+<section id="classification-multi-match" class="level3">
+<h3 class="anchored" data-anchor-id="classification-multi-match">Classification / multi-match</h3>
+<p>When the <strong>same right-side label appears more than once</strong>, it becomes a reusable chip, and so does every other chip in that question, distractors included. Good for classify-into-bins tasks. Keep at least as many chips as prompts (add distractors) or the count itself tells students that chips repeat.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">## Classify each ML task as Regression or Classification!</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">- Predict house price :: Regression</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; The target (price) is a continuous number.</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">- Detect spam email :: Classification</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; The target is a category: spam or not spam.</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">- Forecast stock return :: Regression</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">- Identify handwritten digit :: Classification</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">- :: Clustering</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">    &gt; Clustering is unsupervised — no target label to predict.</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; Regression → continuous target. Classification → categorical target.</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="print-review-mode" class="level2">
-<h2 class="anchored" data-anchor-id="print-review-mode">Print review mode</h2>
-<p>When a student prints the page (<code>Cmd/Ctrl+P</code>), the interactive widget is replaced with a static review sheet showing selected answers, correct answers, per-pair feedback, distractor feedback, and question-level status for all question types. No need to navigate to the results screen first.</p>
+<section id="what-students-see" class="level2">
+<h2 class="anchored" data-anchor-id="what-students-see">What students see</h2>
+<p><strong>Evaluate.</strong> The Evaluate button appears on the last question (or once every question has been visited) and opens the results list: a score, one line per question with ✅ / ❌ (🟡 when partially right), and the comments for the options that matter. The line “Click a result line below to see your answers and feedback” is shown when <code>enable_retry</code> is on.</p>
+<p><strong>After Evaluate</strong> every question is locked until “One more time” (the reset button): options cannot be changed, sequence items cannot be moved, chips cannot be placed. A reopened question shows how it was answered:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Marks</th>
+<th>Comments shown</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Single / multiple choice</td>
+<td>✓ green for a correct option the student picked, ✗ red for a wrong one, dashed green ✓ for a correct option the student missed</td>
+<td>under every option picked or correct, so a missed option explains itself</td>
+</tr>
+<tr class="even">
+<td>Sequence</td>
+<td>✓ for an item in its place, ✗ and its correct position (<code>→ 3</code>) for a misplaced one</td>
+<td>under misplaced items only</td>
+</tr>
+<tr class="odd">
+<td>Matching</td>
+<td>✓ / ✗ per row, with the correct chip after a wrong or empty row</td>
+<td>per pair, and for a placed distractor</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Print review.</strong> When a student prints the page (<code>Cmd/Ctrl+P</code>), the interactive widget is replaced by a static review sheet: selected and correct answers, a <code>Missed</code> badge on a correct option the student did not pick, per-pair feedback, distractor feedback, and a status per question. No need to open the results screen first.</p>
+<p><strong>Keyboard.</strong> Every question type can be answered without a mouse, and a screen reader hears each change:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Multiple choice</td>
+<td>Tab to an option, Space to tick or untick it</td>
+</tr>
+<tr class="even">
+<td>Single choice</td>
+<td>Tab into the options, arrow keys move between them and pick</td>
+</tr>
+<tr class="odd">
+<td>Sequence</td>
+<td>Tab to an item; Arrow Up/Down moves it one place, Home/End to the top or bottom. The ▲▼ buttons are also reachable with Tab</td>
+</tr>
+<tr class="even">
+<td>Matching</td>
+<td>Tab to a chip, Enter or Space selects it; Tab (Shift+Tab) to a row’s slot, Enter or Space places the chip. On a filled slot with nothing selected, Enter picks the chip up; Delete or Backspace empties it. Escape drops the selection</td>
+</tr>
+</tbody>
+</table>
+<p>Slots read as <code>Dog: Woof</code> or <code>Dog: empty</code>, sequence items as <code>2 of 4: Brew coffee</code>, and each placement, clearing or move is announced. After Evaluate the keys change nothing, like the mouse.</p>
+</section>
+<section id="customization" class="level2">
+<h2 class="anchored" data-anchor-id="customization">Customization</h2>
+<section id="quiz-options" class="level3">
+<h3 class="anchored" data-anchor-id="quiz-options">Quiz options</h3>
+<p>A YAML block at the top of the quizdown block, before the first heading:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Default</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>shuffle_answers</code></td>
+<td><code>true</code></td>
+<td>Shuffle options, sequence items and matching chips (sequence questions always shuffle)</td>
+</tr>
+<tr class="even">
+<td><code>shuffle_questions</code></td>
+<td><code>false</code></td>
+<td>Shuffle question order</td>
+</tr>
+<tr class="odd">
+<td><code>nQuestions</code></td>
+<td>all</td>
+<td>Show only this many (shuffled) questions</td>
+</tr>
+<tr class="even">
+<td><code>primary_color</code></td>
+<td><code>steelblue</code></td>
+<td>Accents, selected borders, progress bar</td>
+</tr>
+<tr class="odd">
+<td><code>secondary_color</code></td>
+<td><code>#eef3f8</code></td>
+<td>Option, prompt and hover background (a slight blue)</td>
+</tr>
+<tr class="even">
+<td><code>text_color</code></td>
+<td><code>black</code></td>
+<td>Text on options</td>
+</tr>
+<tr class="odd">
+<td><code>locale</code></td>
+<td>browser</td>
+<td><code>en</code>, <code>de</code>, <code>fr</code> or <code>es</code> for the interface labels</td>
+</tr>
+<tr class="even">
+<td><code>enable_retry</code></td>
+<td><code>true</code></td>
+<td>Reset button, and reopening questions from the results list</td>
+</tr>
+<tr class="odd">
+<td><code>passingGrade</code></td>
+<td>unset</td>
+<td>Percentage needed to show <code>customPassMsg</code> instead of <code>customFailMsg</code></td>
+</tr>
+<tr class="even">
+<td><code>label</code></td>
+<td>unset</td>
+<td>Block label, see below</td>
+</tr>
+<tr class="odd">
+<td><code>partial_credit</code></td>
+<td><code>false</code></td>
+<td>Fractional scores, see below</td>
+</tr>
+<tr class="even">
+<td><code>reuse_chips</code></td>
+<td>by question</td>
+<td>Whether a placed matching chip can also fill another row, see below</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="per-question-options" class="level3">
+<h3 class="anchored" data-anchor-id="per-question-options">Per-question options</h3>
+<p>An options block under a question heading (before or after the list) applies to that question only and overrides the quiz YAML. Precedence: init config &lt; quiz YAML &lt; question YAML.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```quizdown</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">shuffle_answers: true</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="in">## Match each animal to its sound</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">shuffle_answers: false</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="in">reuse_chips: true</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="in">- Dog :: Woof</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="in">- Cat :: Meow</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="in">## Classify</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="in">- Dog :: Mammal</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="in">- Cat :: Mammal</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="labels" class="level3">
+<h3 class="anchored" data-anchor-id="labels">Labels</h3>
+<p><code>label</code> names the block; the prefix appears on the question heading, in the results list and on the printout. Questions are numbered in display order.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Authoring</th>
+<th>1 question in block</th>
+<th>n questions in block</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>no <code>label</code></td>
+<td>no prefix</td>
+<td><code>Q1:</code>, <code>Q2:</code> …</td>
+</tr>
+<tr class="even">
+<td><code>label: B1</code> (quiz YAML)</td>
+<td><code>B1:</code></td>
+<td><code>B1.1:</code>, <code>B1.2:</code> …</td>
+</tr>
+<tr class="odd">
+<td><code>label: false</code> (quiz YAML)</td>
+<td>no prefix</td>
+<td>no prefix</td>
+</tr>
+<tr class="even">
+<td><code>label: B1a</code> (question YAML)</td>
+<td><code>B1a:</code> on that question</td>
+<td><code>B1a:</code> on that question</td>
+</tr>
+</tbody>
+</table>
+<p>A number works too (<code>label: 3</code> → <code>3.1:</code>); an empty string counts as unset. A question’s own label applies to that question only.</p>
+</section>
+<section id="partial-credit-and-scoring" class="level3">
+<h3 class="anchored" data-anchor-id="partial-credit-and-scoring">Partial credit and scoring</h3>
+<p>By default every question scores 0 or 1, and the quiz total is the number of questions fully right. With <code>partial_credit: true</code> (quiz YAML, or a question’s own block), matching and multiple choice score a fraction. The rules are the ones PrairieLearn uses, so a student gets the same number here and in a PrairieLearn assessment built from the same item:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Score with <code>partial_credit: true</code></th>
+<th>PrairieLearn equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Matching</td>
+<td>correct pairs / prompts (3 of 4 right → 0.75)</td>
+<td><code>pl-matching</code> with <code>partial-credit="true"</code>, which is PrairieLearn’s default</td>
+</tr>
+<tr class="even">
+<td>Multiple choice</td>
+<td>(correctly selected − wrongly selected) / correct options, never below 0; nothing selected → 0</td>
+<td><code>pl-checkbox</code> with <code>partial-credit="net-correct"</code> (formerly <code>PC</code>)</td>
+</tr>
+<tr class="odd">
+<td>Single choice</td>
+<td>0 or 1, unchanged</td>
+<td><code>pl-multiple-choice</code> default</td>
+</tr>
+<tr class="even">
+<td>Sequence</td>
+<td>0 or 1, unchanged</td>
+<td><code>pl-order-blocks</code> with <code>partial-credit="none"</code>, the default</td>
+</tr>
+</tbody>
+</table>
+<p>The one difference in defaults: PrairieLearn gives matching partial credit unless told otherwise, this extension does not. Set <code>partial_credit: true</code> on matching blocks that mirror PrairieLearn items. PrairieLearn’s other checkbox methods (<code>coverage</code>, <code>each-answer</code>) and LCS credit for ordering are not available.</p>
+<p>The results show a fractional total with one decimal (<code>1.1/2</code>), rounded to the nearest tenth but never onto a whole number, so a partial score never reads as full or empty; whole totals keep the <code>02/02</code> look. A partly right question gets 🟡 in the results list, and the printout says <code>Partially correct (3/4)</code>. <code>passingGrade</code> uses the unrounded total.</p>
+</section>
+<section id="chip-placement-reuse_chips" class="level3">
+<h3 class="anchored" data-anchor-id="chip-placement-reuse_chips">Chip placement (<code>reuse_chips</code>)</h3>
+<p>Whether a placed chip can also fill another row is decided per question, never per chip, so placing a chip reveals nothing about the answer key. In a classification question (some chip correct for 2+ rows) every chip can sit on several rows; in a 1:1 question, placing a chip on a new row moves it there. Override with <code>reuse_chips: true</code> / <code>false</code> (<code>false</code> is an error when a chip is correct for several rows). Dragging a chip out of a row always moves it.</p>
+</section>
+<section id="hand-written-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="hand-written-blocks">Hand-written blocks</h3>
+<p>The scripts are loaded on every HTML page, so a <code>&lt;div class="quizdown"&gt;</code> written directly in HTML works as well as a code block.</p>
+</section>
 </section>
 <section id="attributions" class="level2">
 <h2 class="anchored" data-anchor-id="attributions">Attributions</h2>
